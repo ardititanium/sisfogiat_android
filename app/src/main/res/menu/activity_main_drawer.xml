@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_d_satlantas"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Daftar Satlantas" />
+        <item
+            android:id="@+id/nav_d_personil"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Daftar Personi" />
+        <item
+            android:id="@+id/nav_d_kategori"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Daftar Kategori" />
+        <item
+            android:id="@+id/nav_d_kegiatan"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Daftar Kegiatan" />
+        <item
+            android:id="@+id/nav_d_agenda"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Daftar Agenda" />
+        <item
+            android:id="@+id/nav_d_surat"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Daftar Surat Perintah" />
+        <item
+            android:id="@+id/nav_d_laporan"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Daftar Laporan" />
+    </group>
+
+    <item android:title="Kelola Jadwal">
+        <menu>
+            <item
+                android:id="@+id/nav_k_atur"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Atur Jadwal" />
+            <item
+                android:id="@+id/nav_k_jadwal"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Daftar Jadwal" />
+            <item
+                android:id="@+id/nav_k_pers"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Personil Terlibat" />
+        </menu>
+    </item>
+
+</menu>

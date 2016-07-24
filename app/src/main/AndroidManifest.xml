@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mipro.ard.penajdwalan">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".json_handler.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="SISFOGIAT"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".tambah.tambah_kategori" />
+        <activity android:name=".tambah.tambah_satlantas" />
+        <activity android:name=".tambah.tambah_personil" />
+        <activity android:name=".tambah.tambah_kegiatan" />
+        <activity android:name=".tambah.tambah_agenda" />
+        <activity android:name=".tambah.tambah_surat_perintah" />
+        <activity android:name=".tambah.tambah_laporan" />
+        <activity android:name=".daftar.daftar_personil" />
+        <activity android:name=".json_handler.satlantas_adapter" />
+        <activity android:name=".daftar.daftar_satlantas"></activity>
+    </application>
+
+</manifest>

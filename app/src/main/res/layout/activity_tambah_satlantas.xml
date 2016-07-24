@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.mipro.ard.penajdwalan.tambah.tambah_satlantas">
+
+    <include
+        android:id="@+id/barCoba"
+        layout="@layout/bar_test" />
+
+    <LinearLayout
+        android:layout_below="@id/barCoba"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_full"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/imageView2"
+                android:src="@drawable/key_ic"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sat_id"
+                android:background="@android:color/transparent"
+                android:hint="Id Salantas" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_full"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/imageView3"
+                android:src="@drawable/satlantas_ic"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sat_nama"
+                android:background="@android:color/transparent"
+                android:hint="Nama Satlantas" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_full"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/imageView4"
+                android:src="@drawable/address_ic"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sat_alamat"
+                android:background="@android:color/transparent"
+                android:hint="Alamat Satlantas" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

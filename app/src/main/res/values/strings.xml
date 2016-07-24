@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">penajdwalan</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string-array name="jk">
+        <item>Laki - Laki </item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="pangkat">
+        <item>KOMBESPOL</item>
+        <item>AKBP</item>
+        <item>KOMPOL</item>
+        <item>AKP</item>
+        <item>IPTU</item>
+        <item>IPDA</item>
+        <item>AIPTU</item>
+        <item>AIPDA</item>
+        <item>BRIPKA</item>
+        <item>BRIGPOL</item>
+        <item>BRIPTU</item>
+        <item>BRIPDA</item>
+    </string-array>
+
+    <string-array name="akses">
+        <item>user</item>
+        <item>admin</item>
+    </string-array>
+
+    <string-array name="bagian">
+        <item>-- Pilih Bagian Pelaksana --</item>
+        <item>Subdit Renmin</item>
+        <item>Bin Opsnal</item>
+        <item>Subdit Kamsel</item>
+        <item>Subdit Regident</item>>
+        <item>Subdit Dikyasa</item>
+        <item>Subdit Gakkum</item>
+        <item>Satuan PJR</item>
+    </string-array>
+
+    <string-array name="status">
+        <item> Belum </item>
+        <item> Selesai </item>
+    </string-array>
+</resources>

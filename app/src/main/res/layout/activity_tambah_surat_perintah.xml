@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mipro.ard.penajdwalan.tambah.tambah_surat_perintah">
+
+    <include
+        android:id="@+id/barCoba"
+        layout="@layout/bar_test" />
+
+    <LinearLayout
+        android:layout_below="@id/barCoba"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="PILIH SURAT PERINTAH"
+            android:id="@+id/sp_pilih"
+            android:background="@drawable/rounded_red"
+            android:layout_marginBottom="20dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/sp_holder" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_full"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp" >
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sp_nama"
+                android:background="@android:color/transparent"
+                android:hint="Nama Surat Perintah"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

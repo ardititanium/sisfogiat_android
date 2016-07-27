@@ -48,4 +48,5 @@
         <item> Belum </item>
         <item> Selesai </item>
     </string-array>
+    <string name="title_activity_detail_personil">detail_personil</string>
 </resources>

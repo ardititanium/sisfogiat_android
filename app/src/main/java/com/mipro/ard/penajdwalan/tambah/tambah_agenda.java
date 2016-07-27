@@ -1,10 +1,8 @@
 package com.mipro.ard.penajdwalan.tambah;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,7 +22,7 @@ public class tambah_agenda extends AppCompatActivity {
 
         title_bar = (TextView) findViewById(R.id.bar_title);
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
-        m_done_btn = (ImageButton) findViewById(R.id.done_btn);
+        m_done_btn = (ImageButton) findViewById(R.id.search_btn);
 
         title_bar.setText("TAMBAH AGENDA");
 

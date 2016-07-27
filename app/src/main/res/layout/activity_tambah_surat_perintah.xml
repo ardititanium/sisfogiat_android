@@ -17,19 +17,36 @@
         android:orientation="vertical"
         >
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:text="PILIH SURAT PERINTAH"
-            android:id="@+id/sp_pilih"
-            android:background="@drawable/rounded_red"
-            android:layout_marginBottom="20dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="SCAN SURAT"
+                android:id="@+id/btn_cam_up_sp"
+                android:background="@drawable/rounded_red"
+                android:layout_marginBottom="0dp"
+                android:layout_marginRight="10dp" />
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/sp_holder" />
+            android:id="@+id/holder_up_sp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/progressBar" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -42,11 +59,13 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sp_nama"
+                android:id="@+id/nama_sp_up"
                 android:background="@android:color/transparent"
                 android:hint="Nama Surat Perintah"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:inputType="textNoSuggestions"/>
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

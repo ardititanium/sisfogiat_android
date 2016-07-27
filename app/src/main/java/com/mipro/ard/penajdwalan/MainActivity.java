@@ -13,7 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
+import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
+import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
 import com.mipro.ard.penajdwalan.tambah.*;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -82,18 +85,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_d_satlantas) {
-            Intent add_satlantas = new Intent(this.getApplicationContext(), tambah_satlantas.class);
+            Intent add_satlantas = new Intent(this.getApplicationContext(), daftar_satlantas.class);
             startActivity(add_satlantas);
-        } else if (id == R.id.nav_d_satlantas) {
+        } else if (id == R.id.nav_d_personil) {
             Intent add_personil = new Intent(this.getApplicationContext(), daftar_personil.class);
             startActivity(add_personil);
 
         } else if (id == R.id.nav_d_kategori) {
-            Intent add_kategori = new Intent(this.getApplicationContext(), tambah_kategori.class);
+            Intent add_kategori = new Intent(this.getApplicationContext(), daftar_kategori.class);
             startActivity(add_kategori);
 
         } else if (id == R.id.nav_d_kegiatan) {
-            Intent add_kegiatan = new Intent(this.getApplicationContext(), tambah_kegiatan.class);
+            Intent add_kegiatan = new Intent(this.getApplicationContext(), daftar_kegiatan.class);
             startActivity(add_kegiatan);
 
         } else if (id == R.id.nav_d_agenda) {

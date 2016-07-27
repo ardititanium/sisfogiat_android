@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mipro.ard.penajdwalan.detail.detail_satlantas"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/rounded_square_b_stroke"
+    >
+
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="1"
+        android:id="@+id/id_sat_det"
+        android:layout_marginTop="60dp"
+        android:gravity="fill_horizontal|center_vertical"
+        android:textAlignment="center"
+        android:background="@drawable/rounded_square_y"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/nama_sat_det"
+        android:layout_below="@+id/id_sat_det"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/alamat_sat_det"
+        android:layout_below="@+id/nama_sat_det"
+        android:layout_alignLeft="@+id/nama_sat_det"
+        android:layout_alignStart="@+id/nama_sat_det"
+        android:textAlignment="center"
+
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="EDIT"
+            android:id="@+id/edit_sat"
+            android:background="@drawable/rounded_red"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="HAPUS"
+            android:id="@+id/hapus_sat"
+            android:background="@drawable/rounded_red"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_below="@+id/edit_sat"
+            android:layout_alignLeft="@+id/edit_sat"
+            android:layout_alignStart="@+id/edit_sat"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

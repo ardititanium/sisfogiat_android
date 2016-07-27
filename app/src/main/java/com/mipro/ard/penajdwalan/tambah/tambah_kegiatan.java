@@ -2,10 +2,8 @@ package com.mipro.ard.penajdwalan.tambah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -30,7 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +54,7 @@ public class tambah_kegiatan extends AppCompatActivity {
 
         title_bar = (TextView) findViewById(R.id.bar_title);
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
-        m_done_btn = (ImageButton) findViewById(R.id.done_btn);
+        m_done_btn = (ImageButton) findViewById(R.id.search_btn);
 
         title_bar.setText("TAMBAH KEGIATAN");
 
@@ -165,6 +162,7 @@ public class tambah_kegiatan extends AppCompatActivity {
                         try {
                             JSONObject jPesan = new JSONObject(response);
                             boolean pesan = jPesan.names().get(1).equals("success");
+
                             if(pesan == true){
                                 PD.dismiss();
                                 et_nama.setText("");
@@ -218,7 +216,7 @@ public class tambah_kegiatan extends AppCompatActivity {
     }
 
     public void getDataSatlantas(){
-        StringRequest stringRequest = new StringRequest(parser.DATA_SATLANATAS,
+        StringRequest stringRequest = new StringRequest(parser.DATA_SAT_SPINNER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -246,7 +244,7 @@ public class tambah_kegiatan extends AppCompatActivity {
 
 
     public void getDataKategori(){
-        StringRequest stringRequest = new StringRequest(parser.DATA_KATEGORI,
+        StringRequest stringRequest = new StringRequest(parser.DATA_KAT_SPINNER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -324,4 +322,5 @@ public class tambah_kegiatan extends AppCompatActivity {
         });
         MyApplication.getInstance().addToReqQueue(request);
     }
+
 }

@@ -6,4 +6,5 @@
     <color name="bgColor">#1b2431</color>
     <color name="textColor">#34495e</color>
     <color name="textColorAccent">#7f8c8d</color>
+    <color name="transBg">#80ffffff</color>
 </resources>

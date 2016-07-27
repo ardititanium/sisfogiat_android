@@ -18,14 +18,14 @@
         <TextView
             android:layout_width = "fill_parent"
             android:layout_height = "?android:attr/actionBarSize"
-            android:layout_toLeftOf = "@+id/done_btn"
+            android:layout_toLeftOf = "@+id/search_btn"
             android:layout_toRightOf = "@id/kembali_btn"
             android:id="@+id/bar_title"
             android:text="TITLE HERE"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="18dp" />
         <ImageButton
-            android:id = "@+id/done_btn"
+            android:id = "@+id/search_btn"
             android:layout_width = "?android:attr/actionBarSize"
             android:layout_height = "?android:attr/actionBarSize"
             android:src="@drawable/done_ic"

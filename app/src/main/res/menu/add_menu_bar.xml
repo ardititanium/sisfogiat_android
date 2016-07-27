@@ -7,7 +7,7 @@
     >
 
     <item
-        android:id="@+id/done_btn"
+        android:id="@+id/search_btn"
         android:title="done"
         android:orderInCategory="100"
         app:showAsAction="always"

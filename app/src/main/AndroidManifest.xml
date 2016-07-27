@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".json_handler.MyApplication"
         android:allowBackup="true"
@@ -29,8 +36,17 @@
         <activity android:name=".tambah.tambah_surat_perintah" />
         <activity android:name=".tambah.tambah_laporan" />
         <activity android:name=".daftar.daftar_personil" />
-        <activity android:name=".json_handler.satlantas_adapter" />
-        <activity android:name=".daftar.daftar_satlantas"></activity>
+        <activity android:name=".daftar.daftar_satlantas" />
+        <activity
+            android:name=".detail.detail_satlantas"
+            android:theme="@style/AppTheme.popTheme" />
+        <activity
+            android:name=".detail.detail_personil"
+            android:theme="@style/AppTheme.popTheme" />
+        <activity android:name=".daftar.daftar_kategori" />
+        <activity android:name=".daftar.daftar_kegiatan" />
+        <activity android:name=".detail.detail_kegiatan" />
+        <activity android:name=".jadwal.atur_jadwal"></activity>
     </application>
 
 </manifest>

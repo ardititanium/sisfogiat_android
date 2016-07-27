@@ -2,13 +2,10 @@ package com.mipro.ard.penajdwalan.tambah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewDebug;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -66,7 +63,7 @@ public class tambah_personil extends AppCompatActivity  {
 
         title_bar = (TextView) findViewById(R.id.bar_title);
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
-        m_done_btn = (ImageButton) findViewById(R.id.done_btn);
+        m_done_btn = (ImageButton) findViewById(R.id.search_btn);
 
         title_bar.setText("TAMBAH PERSONIL");
 
@@ -180,7 +177,7 @@ public class tambah_personil extends AppCompatActivity  {
             public void onErrorResponse(VolleyError error) {
                 PD.dismiss();
                 Toast.makeText(getApplicationContext(),
-                        "failed to insert", Toast.LENGTH_SHORT).show();
+                        "Terjadi Kesalahan Jarigan", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

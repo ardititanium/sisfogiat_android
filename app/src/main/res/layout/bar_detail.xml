@@ -1,0 +1,20 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height = "?android:attr/actionBarSize"
+        android:layout_alignParentBottom = "true">
+        <ImageButton
+            android:id = "@+id/kembali_btn"
+            android:layout_width = "?android:attr/actionBarSize"
+            android:layout_height = "?android:attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:src="@drawable/left_arr_ic"
+            android:layout_alignParentLeft = "true"/>
+
+    </RelativeLayout>
+</RelativeLayout>

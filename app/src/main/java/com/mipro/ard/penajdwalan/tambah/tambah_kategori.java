@@ -2,11 +2,8 @@ package com.mipro.ard.penajdwalan.tambah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -14,13 +11,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.mipro.ard.penajdwalan.MainActivity;
 
 import com.mipro.ard.penajdwalan.R;
@@ -50,7 +45,7 @@ public class tambah_kategori extends AppCompatActivity {
 
         title_bar = (TextView) findViewById(R.id.bar_title);
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
-        m_done_btn = (ImageButton) findViewById(R.id.done_btn);
+        m_done_btn = (ImageButton) findViewById(R.id.search_btn);
 
         title_bar.setText("TAMBAH KATEGORI");
 

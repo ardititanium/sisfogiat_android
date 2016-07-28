@@ -111,6 +111,7 @@ public class daftar_personil extends AppCompatActivity {
                         item.setHakAkses(listPers.getString("hakAkses"));
                         item.setPassword(listPers.getString("password"));
                         listItemPersonils.add(item);
+                        Toast.makeText(getApplicationContext(), String.valueOf(jsonArray.length()), Toast.LENGTH_LONG).show();
                     }
 
 

@@ -66,6 +66,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         back_btn = (ImageButton) findViewById(R.id.back_btn_jadwal);
 
 
+
         id_giat_tv.setText(ambilIntent("id_giat"));
         nama_giat_tv.setText(ambilIntent("nama_giat"));
 
@@ -156,6 +157,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                         try {
                             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(formatTgl);
                             String dateFix = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                            tgl_selesai_et.setText("");
                             tgl_selesai_et.setText(dateFix);
                             cekTanggal();
 
@@ -359,6 +361,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                     if (jsonObject.names().get(0).equals("id")){
                         String id = jsonObject.getString("id");
                         idJadwal_et.setText(id);
+                        mId_jadwal = idJadwal_et.getText().toString();
                     }
 
                 } catch (JSONException e) {

@@ -17,9 +17,16 @@ import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
 import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
+import com.mipro.ard.penajdwalan.json_handler.parser;
 import com.mipro.ard.penajdwalan.tambah.*;
 import com.github.clans.fab.FloatingActionButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 
 
 public class MainActivity extends AppCompatActivity
@@ -182,4 +189,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+
 }

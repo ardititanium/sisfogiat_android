@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
+import com.mipro.ard.penajdwalan.jadwal.atur_jadwal;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -71,6 +72,13 @@ public class detail_kegiatan extends AppCompatActivity {
             btn_atur_jadwal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bundle setGiat = new Bundle();
+                    setGiat.putString("id_giat", id_giat);
+                    setGiat.putString("nama_giat", nama_giat);
+
+                    Intent aturGiat = new Intent(getApplicationContext(), atur_jadwal.class);
+                    aturGiat.putExtras(setGiat);
+                    startActivity(aturGiat);
 
                 }
             });
@@ -79,12 +87,8 @@ public class detail_kegiatan extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle setGiat = new Bundle();
-                Intent backInt = new Intent(getApplicationContext(), daftar_kegiatan.class);
-                setGiat.putString("id_giat", id_giat);
-                setGiat.putString("nama_giat", nama_giat);
 
-                backInt.putExtras(setGiat);
+                Intent backInt = new Intent(getApplicationContext(), daftar_kegiatan.class);
                 startActivity(backInt);
             }
         });

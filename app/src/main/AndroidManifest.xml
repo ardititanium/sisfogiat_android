@@ -46,7 +46,8 @@
         <activity android:name=".daftar.daftar_kategori" />
         <activity android:name=".daftar.daftar_kegiatan" />
         <activity android:name=".detail.detail_kegiatan" />
-        <activity android:name=".jadwal.atur_jadwal"></activity>
+        <activity android:name=".jadwal.atur_jadwal" />
+        <activity android:name=".jadwal.pilih_personil"></activity>
     </application>
 
 </manifest>

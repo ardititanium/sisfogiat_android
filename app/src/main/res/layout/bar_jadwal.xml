@@ -1,0 +1,86 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="250dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_flat"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:id="@+id/mainbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#80000000">
+
+        <ImageButton
+            android:id="@+id/back_btn_jadwal"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
+            android:src="@drawable/back_ic"
+            android:background="@android:color/transparent"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_toLeftOf="@+id/done_btn_jadwal"
+            android:layout_toRightOf="@+id/back_btn_jadwal"
+            android:id="@+id/id_jadwal"
+            android:text="TITLE HERE"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="18dp" />
+
+        <ImageButton
+            android:id="@+id/done_btn_jadwal"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
+            android:src="@drawable/done_ic"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/mainbar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:paddingLeft="60dp"
+        android:paddingRight="20dp"
+        android:background="#80000000"
+        android:gravity="bottom"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/det_id_jadwal"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_square_d"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/det_nama_jadwal"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

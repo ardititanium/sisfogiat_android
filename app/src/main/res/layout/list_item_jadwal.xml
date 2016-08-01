@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/layout_holder_jadwal"
+    android:background="@drawable/click_selector"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:text="New Text"
+            android:id="@+id/nama_jadwal_kegiatan"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/calendar_check"
+            android:drawablePadding="10dp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp">
+
+            <TextView
+                android:drawableLeft="@drawable/time_ic_min"
+                android:drawablePadding="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/waktu_jadwal"
+                android:textSize="12dp"
+                android:textColor="#80ffffff"
+                android:gravity="center_vertical"
+                android:layout_weight="1" />
+
+            <TextView
+                android:drawableLeft="@drawable/google_maps"
+                android:drawablePadding="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/lokasi_jadwal"
+                android:textSize="12dp"
+                android:textColor="#80ffffff"
+                android:gravity="center_vertical"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

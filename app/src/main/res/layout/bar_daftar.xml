@@ -14,8 +14,8 @@
             android:layout_width = "?android:attr/actionBarSize"
             android:layout_height = "?android:attr/actionBarSize"
             android:src="@drawable/left_arr_ic"
-            android:background="#e74c3c"
-            android:layout_alignParentLeft = "true"/>
+            android:layout_alignParentLeft = "true"
+            android:background="@android:color/transparent" />
         <TextView
             android:layout_width = "210dp"
             android:layout_height = "?android:attr/actionBarSize"
@@ -24,7 +24,10 @@
             android:id="@+id/bar_title"
             android:text="TITLE HERE"
             android:gravity="center_vertical|center_horizontal"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textColor="#fff"
+            android:textAlignment="textStart"
+            android:paddingLeft="16dp" />
         <ImageButton
             android:id = "@+id/search_btn"
             android:layout_width = "?android:attr/actionBarSize"

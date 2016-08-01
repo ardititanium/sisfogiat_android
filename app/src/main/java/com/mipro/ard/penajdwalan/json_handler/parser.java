@@ -36,5 +36,18 @@ public class parser {
     public static final String DATA_SURAT = "http://"+ IP_PUBLIC +"/ditlantas/json/surat/insert.php";
 
 
+    // LOGIN HANDLER
+    public static final String DATA_LOGIN = "http://"+ IP_PUBLIC +"/ditlantas/json/login/login.php";
+    public static final String SHARED_PREF_NAME = "loginsisfo";
+    public static final String LOGGEDIN_SHARED_PREF = "loggedin";
+    public static final String LOGIN_SUCCESS = "success";
+
+    public static final String NRP_SHARED_PREF      = "nrp";
+    public static final String NAMA_SHARED_PREF     = "nama";
+    public static final String AKSES_SHARED_PREF    = "akses";
+    public static final String ID_SHARED_PREF       = "id";
+    public static final String SATUAN_SHARED_PREF   = "satuan";
+    public static final String PASS_SHARED_PREF     = "pass";
+    public static final String PANGKAT_SHARED_PREF  = "pangkat";
 
 }

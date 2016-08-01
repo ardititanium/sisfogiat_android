@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
+import com.mipro.ard.penajdwalan.edit.edit_personil;
 
 import org.w3c.dom.Text;
 
@@ -19,6 +20,7 @@ public class detail_personil extends AppCompatActivity {
     Button edit_btn, hapus_btn;
     ImageButton back_btn;
     String kelamin, pass;
+    Bundle setPers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,12 @@ public class detail_personil extends AppCompatActivity {
         belum_tv = (TextView) findViewById(R.id.belum_pop);
         kelamin_tv = (TextView) findViewById(R.id.kelamin_pers);
         akses_tv = (TextView) findViewById(R.id.akses_pers);
+        edit_btn = (Button) findViewById(R.id.edit_pers);
+        hapus_btn = (Button) findViewById(R.id.hapus_pers);
 
 
         Bundle dataPers = getIntent().getExtras();
+        setPers = new Bundle();
 
         pangkat_tv.setText(dataPers.getCharSequence("pangkat"));
         nama_tv.setText(dataPers.getCharSequence("nama"));
@@ -61,5 +66,28 @@ public class detail_personil extends AppCompatActivity {
             }
         });
 
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPersonil();
+            }
+        });
+
     }
+
+    private void editPersonil() {
+
+        setPers.putString("nrp", nrp_tv.getText().toString());
+        setPers.putString("nama", nama_tv.getText().toString());
+        setPers.putString("pangkat", pangkat_tv.getText().toString());
+        setPers.putString("satuan", satuan_tv.getText().toString());
+        setPers.putString("kelamin", kelamin);
+        setPers.putString("akses", akses_tv.getText().toString());
+        setPers.putString("password", pass);
+        Intent editInt = new Intent(getApplicationContext(), edit_personil.class);
+        editInt.putExtras(setPers);
+        startActivity(editInt);
+    }
+
+
 }

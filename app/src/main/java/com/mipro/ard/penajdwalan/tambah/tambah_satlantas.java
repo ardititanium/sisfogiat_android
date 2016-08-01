@@ -2,6 +2,7 @@ package com.mipro.ard.penajdwalan.tambah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,12 +12,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
@@ -106,9 +110,20 @@ public class tambah_satlantas extends AppCompatActivity {
                                 PD.dismiss();
                                 et_nama.setText("");
                                 et_alamat.setText("");
-                                Toast.makeText(getApplicationContext(),
-                                        "Data Satlants Berhasil di Simpan",
-                                        Toast.LENGTH_SHORT).show();
+                                new MaterialDialog.Builder(tambah_satlantas.this)
+                                        .content("Data Satlantas Berhasil di Simpan")
+                                        .positiveText("Tambah Baru")
+                                        .negativeText("Lihat Daftar")
+                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                Intent daftarInt = new Intent(tambah_satlantas.this, daftar_satlantas.class);
+                                                startActivity(daftarInt);
+                                                finish();
+                                            }
+                                        })
+                                        .show();
+
 
                             }else {
                                 PD.dismiss();
@@ -150,6 +165,7 @@ public class tambah_satlantas extends AppCompatActivity {
                     if (jsonObject.names().get(0).equals("id")){
                         String id = jsonObject.getString("id");
                         et_id.setText(id);
+
                     }
 
                 } catch (JSONException e) {

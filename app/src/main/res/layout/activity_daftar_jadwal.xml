@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mipro.ard.penajdwalan.jadwal.daftar_jadwal">
+
+    <include
+        android:id="@+id/bar_jadwal"
+        layout="@layout/bar_daftar"></include>
+
+    <LinearLayout
+        android:layout_below="@id/bar_jadwal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:id="@+id/calendarView"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:contextClickable="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusedMonthDateColor="@color/bgColor"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimaryDark">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/indikator_tgl"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rec_calender"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

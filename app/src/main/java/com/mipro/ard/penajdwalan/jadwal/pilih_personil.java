@@ -3,6 +3,7 @@ package com.mipro.ard.penajdwalan.jadwal;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +28,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.personil.ListItemPersonil;
+import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
+import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.ListItemPilihPersonil;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.ListRowViewHolderPilihPersonil;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.pilihPersonilRecyclerAdapter;
@@ -49,7 +54,6 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
     Toolbar toolbar;
     final String TAG = "Pilih Personil";
     private List<ListItemPilihPersonil> listItemPilihPersonils = new ArrayList<ListItemPilihPersonil>();
-    public List<ListItemPilihPersonil> selectedPersonil = new ArrayList<ListItemPilihPersonil>();
     RecyclerView recyclerView;
     pilihPersonilRecyclerAdapter adapter;
     private ProgressDialog PD;
@@ -57,6 +61,8 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
     StringBuffer stringBuffer = null;
     String[] arrPers = null;
     String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/persjadwal/insert.php";
+    int jumlah;
+
     Context context;
     String idJadwal, idjadwaltosave;
 
@@ -91,6 +97,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
     private void UpdateList(){
 
+        String urlPers = "http://"+ parser.IP_PUBLIC + "/ditlantas/json/persterlibat/view.php?idj="+idJadwal;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 parser.DATA_PERSONIL, null, new Response.Listener<JSONObject>() {
 
@@ -101,6 +108,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
                 try {
                     JSONObject jPesan = response.getJSONObject("data");
                     JSONArray jsonArray = jPesan.getJSONArray("personil");
+                    jumlah = jsonArray.length();
 
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject listPers = jsonArray.getJSONObject(i);
@@ -171,9 +179,9 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
     public void updateCounter(int counter) {
         if (counter == 0) {
-            counter_tv.setText("0 Personil Terpilih");
+            counter_tv.setText("0 Personil Terpilih dari " + String.valueOf(jumlah));
         } else {
-            counter_tv.setText(counter + " Personil Terpilih");
+            counter_tv.setText(counter + " Personil Terpilih dari " +jumlah);
         }
     }
 
@@ -192,6 +200,23 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
             if (adapter.personilTerpilih.size()>0){
                 save();
+                new MaterialDialog.Builder(pilih_personil.this)
+                        .content("Jadwal Telah diatur")
+                        .positiveText("Lihat Daftar")
+                        .backgroundColorRes(R.color.success)
+                        .positiveColorRes(R.color.mdtp_white)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                Intent backList = new Intent(pilih_personil.this, daftar_kegiatan.class);
+                                startActivity(backList);
+                            }
+                        })
+                        .show();
+
+
+
+
             }else {
                 Toast.makeText(getApplicationContext(), "Tidak ada yg terpilih", Toast.LENGTH_LONG).show();
             }

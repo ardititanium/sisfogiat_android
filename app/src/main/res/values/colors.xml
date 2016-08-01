@@ -7,4 +7,5 @@
     <color name="textColor">#34495e</color>
     <color name="textColorAccent">#7f8c8d</color>
     <color name="transBg">#80ffffff</color>
+    <color name="success">#2ecc71</color>
 </resources>

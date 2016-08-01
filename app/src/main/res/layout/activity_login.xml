@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mipro.ard.penajdwalan.LoginActivity"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="SELAMAT DATANG"
+        android:id="@+id/textView2"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="SISFOGIAT"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Silahkan Login Untuk Menggunakan SIstem"
+        android:id="@+id/textView6"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:drawableLeft="@drawable/account"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:id="@+id/nrp_login"
+        android:background="@drawable/rounded_et"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:drawableLeft="@drawable/lock_open"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:id="@+id/pass_login"
+        android:background="@drawable/rounded_et"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/btn_login"
+        android:background="@drawable/rounded_btn_w"
+        android:textColor="@color/bgColor"
+        android:layout_marginBottom="16dp" />
+
+</LinearLayout>

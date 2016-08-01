@@ -1,9 +1,9 @@
-package com.mipro.ard.penajdwalan.tambah;
+package com.mipro.ard.penajdwalan.edit;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +24,7 @@ import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,8 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class tambah_personil extends AppCompatActivity  {
-    String url = "http://" + parser.IP_PUBLIC + "/ditlantas/json/personil/insert.php";
+public class edit_personil extends AppCompatActivity  {
+    String url = "http://" + parser.IP_PUBLIC + "/ditlantas/json/personil/edit.php";
     String mNrp, mNama, mJk, mPangkat, mSatuan, mPass, mAkses;
     EditText et_nrp, et_nama, et_pass;
     TextView title_bar;
@@ -42,7 +43,7 @@ public class tambah_personil extends AppCompatActivity  {
     Spinner jk_spin, pangkat_spin, satuan_spin, akses_spin;
     ArrayAdapter<CharSequence> jk_adapter, pangkat_adapter, satuan_adapter, akses_adapter;
     ProgressDialog PD;
-
+    Bundle getPers;
     private ArrayList<String> namaSatuan, idSatuan;
 
 
@@ -121,6 +122,11 @@ public class tambah_personil extends AppCompatActivity  {
         PD.setCancelable(false);
 
         getData();
+
+        getPers = getIntent().getExtras();
+        et_nrp.setText(ambilIntent("nrp"));
+        et_nama.setText(ambilIntent("nama"));
+        et_pass.setText(getPers.getCharSequence("password"));
 
 
     }
@@ -247,12 +253,13 @@ public class tambah_personil extends AppCompatActivity  {
                 e.printStackTrace();
             }
         }
-        satuan_spin.setAdapter(new ArrayAdapter<String>(tambah_personil.this, android.R.layout.simple_spinner_dropdown_item, namaSatuan));
+        satuan_spin.setAdapter(new ArrayAdapter<String>(edit_personil.this, android.R.layout.simple_spinner_dropdown_item, namaSatuan));
 
     }
 
-
-
-
-
+    String ambilIntent(String giat){
+        giat = String.valueOf(getPers.getCharSequence(giat));
+        String convert = WordUtils.capitalize(giat);
+        return convert;
+    }
 }

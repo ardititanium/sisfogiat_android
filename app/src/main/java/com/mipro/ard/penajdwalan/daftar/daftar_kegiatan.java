@@ -63,6 +63,7 @@ public class daftar_kegiatan extends AppCompatActivity {
             public void onClick(View v) {
                 Intent back_home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(back_home);
+                finish();
             }
         });
 
@@ -117,6 +118,7 @@ public class daftar_kegiatan extends AppCompatActivity {
                         item.setDeskripsi(listGiat.getString("deskripsi"));
                         item.setNamaSatuan(listGiat.getString("namaSatuan"));
                         listItemListKegiatan.add(item);
+                        Log.d("Isi Deskripsi", listGiat.getString("deskripsi"));
                     }
 
 

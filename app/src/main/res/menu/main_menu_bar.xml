@@ -21,5 +21,7 @@
         app:showAsAction="always"
         android:icon="@drawable/bell_ic"
         />
+    <item android:id="@+id/menuLogut"
+        android:title="Logout" />
 
 </menu>

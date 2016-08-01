@@ -1,9 +1,14 @@
-package com.mipro.ard.penajdwalan.tambah;
+package com.mipro.ard.penajdwalan.edit;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -11,14 +16,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.mipro.ard.penajdwalan.MainActivity;
-
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
@@ -28,13 +34,14 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class tambah_kategori extends AppCompatActivity {
-    String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/kategori/insert.php";
+public class edit_kategori extends AppCompatActivity {
+    String url = "http://" + parser.IP_PUBLIC + "/ditlantas/json/kategori/update.php";
     TextView title_bar;
     ImageButton m_done_btn, m_back_btn;
     EditText et_id, et_nama;
     String mId, mNama;
     RequestQueue requestid;
+    Context context;
 
     ProgressDialog PD;
 
@@ -47,12 +54,12 @@ public class tambah_kategori extends AppCompatActivity {
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_done_btn = (ImageButton) findViewById(R.id.search_btn);
 
-        title_bar.setText("TAMBAH KATEGORI");
+        title_bar.setText("EDIT KATEGORI");
 
         m_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back_home = new Intent(getApplicationContext(), MainActivity.class);
+                Intent back_home = new Intent(getApplicationContext(), daftar_kategori.class);
                 startActivity(back_home);
             }
         });
@@ -61,14 +68,13 @@ public class tambah_kategori extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insert();
-                setID();
+
             }
         });
 
-//        requestid = Volley.newRequestQueue(getApplicationContext());
 
         initViews();
-        setID();
+
     }
 
     @Override
@@ -81,6 +87,11 @@ public class tambah_kategori extends AppCompatActivity {
     void initViews() {
         et_id = (EditText) findViewById(R.id.kat_id);
         et_nama = (EditText) findViewById(R.id.kat_nama);
+
+        Intent getKat = getIntent();
+
+        et_id.setText(getKat.getCharSequenceExtra("id_kat"));
+        et_nama.setText(getKat.getCharSequenceExtra("nama_kat"));
 
 
         PD = new ProgressDialog(this);
@@ -100,14 +111,37 @@ public class tambah_kategori extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jPesan = new JSONObject(response);
-                            boolean pesan = jPesan.names().get(1).equals("success");
-                            if (pesan == true){
+                            boolean pesan = jPesan.names().get(0).equals("success");
+                            if (pesan == true) {
                                 PD.dismiss();
                                 et_nama.setText("");
-                                Toast.makeText(getApplicationContext(),
-                                        "Data Kategori Berhasil di Simpan",
-                                        Toast.LENGTH_SHORT).show();
-                            }else if(pesan == false){
+                                new MaterialDialog.Builder(edit_kategori.this)
+                                        .content("Perubahan telah disimpan")
+                                        .positiveText("Lihat Daftar")
+                                        .backgroundColorRes(R.color.success)
+                                        .positiveColorRes(R.color.mdtp_white)
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                Intent backList = new Intent(edit_kategori.this, daftar_kategori.class);
+                                                startActivity(backList);
+                                            }
+                                        })
+                                        .show();
+
+//                                new AlertDialog.Builder(edit_kategori.this)
+//                                        .setTitle("Pesan")
+//                                        .setMessage("Perubahan Berhasil Disimpan")
+//                                        .backgroundColorRes(R.color.material_blue_grey_800)
+//                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                Intent backList = new Intent(edit_kategori.this, daftar_kategori.class);
+//                                                startActivity(backList);
+//                                            }
+//                                        }).show();
+
+                            } else if (pesan == false) {
                                 Toast.makeText(getApplicationContext(),
                                         "Terjadi Kesalahan",
                                         Toast.LENGTH_SHORT).show();
@@ -137,29 +171,5 @@ public class tambah_kategori extends AppCompatActivity {
         // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(postRequest);
     }
-
-
-    public void setID(){
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.names().get(0).equals("id")){
-                        String id = jsonObject.getString("id");
-                        et_id.setText(id);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        MyApplication.getInstance().addToReqQueue(request);
-    }
 }
+

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ public class KegiatanRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
                 intent.putExtras(dataGiat);
                 context.startActivity(intent);
 
+
             }
         });
 
@@ -114,6 +116,7 @@ public class KegiatanRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
         holder.kota_tv.setText(listItemKegiatan.getKota());
         holder.bagian_tv.setText(listItemKegiatan.getBagian());
         holder.satuan_tv.setText(listItemKegiatan.getNamaSatuan());
+
 
 
 

@@ -62,6 +62,7 @@ public class daftar_satlantas extends AppCompatActivity {
             public void onClick(View v) {
                 Intent back_home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(back_home);
+                finish();
             }
         });
 

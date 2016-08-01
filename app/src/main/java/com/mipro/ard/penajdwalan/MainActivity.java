@@ -1,8 +1,12 @@
 package com.mipro.ard.penajdwalan;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,25 +16,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
 import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
+import com.mipro.ard.penajdwalan.jadwal.daftar_jadwal;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 import com.mipro.ard.penajdwalan.tambah.*;
 import com.github.clans.fab.FloatingActionButton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView nrp_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity
         fabOnClick();
 
 
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -49,6 +55,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        nrp_tv = (TextView) header.findViewById(R.id.nrp_user);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(parser.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String nrp_login = sharedPreferences.getString(parser.NRP_SHARED_PREF, "Not Available");
+        nrp_tv.setText(nrp_login);
+
 
 
     }
@@ -65,21 +80,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu_bar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.menuLogut) {
+            logout();
         }
 
         return super.onOptionsItemSelected(item);
@@ -88,7 +98,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_d_satlantas) {
@@ -117,8 +126,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_d_laporan) {
             Intent add_laporan = new Intent(this.getApplicationContext(), tambah_laporan.class);
             startActivity(add_laporan);
+        }else if(id == R.id.nav_k_jadwal){
+            Intent list_jadwal = new Intent(this.getApplicationContext(), daftar_jadwal.class);
+            startActivity(list_jadwal);
         }
 
+
+
+
+        nrp_tv = (TextView) findViewById(R.id.nrp_user);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -188,6 +204,36 @@ public class MainActivity extends AppCompatActivity
                 startActivity(add_laporan);
             }
         });
+    }
+
+
+    public void logout(){
+        new MaterialDialog.Builder(MainActivity.this)
+                .content("Anda yakin akan Logout")
+                .positiveText("YA")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        SharedPreferences sharedPreferences = getSharedPreferences(parser.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        editor.putBoolean(parser.LOGGEDIN_SHARED_PREF, false);
+                        editor.putString(parser.NRP_SHARED_PREF, "");
+                        editor.commit();
+
+                        Intent logout = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(logout);
+
+                    }
+                })
+                .negativeText("TIDAK")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .show();
     }
 
 

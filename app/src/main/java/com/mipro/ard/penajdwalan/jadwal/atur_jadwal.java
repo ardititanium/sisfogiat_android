@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,14 +17,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+import com.mipro.ard.penajdwalan.tambah.tambah_surat_perintah;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONException;
@@ -106,9 +110,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
 
             }else if(v == done_btn){
                 insert();
-                Intent intent = new Intent(getApplicationContext(), pilih_personil.class);
-                intent.putExtra("idJadwal", mId_jadwal);
-                startActivity(intent);
+
 
             }
     }
@@ -157,7 +159,6 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                         try {
                             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(formatTgl);
                             String dateFix = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                            tgl_selesai_et.setText("");
                             tgl_selesai_et.setText(dateFix);
                             cekTanggal();
 
@@ -304,7 +305,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         mTglMulai = tgl_mulai_et.getText().toString();
         mTglSelesai = tgl_selesai_et.getText().toString();
         mJamMulai = jam_mulai_et.getText().toString();
-        mTglSelesai = jam_selesai_et.getText().toString();
+        mJamSelesai = jam_selesai_et.getText().toString();
 
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -316,9 +317,9 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                             boolean pesan = jPesan.names().get(1).equals("success");
                             if (pesan == true){
                                 PD.dismiss();
-                                Toast.makeText(getApplicationContext(),
-                                        "Data Kategori Berhasil di Simpan",
-                                        Toast.LENGTH_SHORT).show();
+
+                                savedSucced();
+
                             }else if(pesan == false){
                                 Toast.makeText(getApplicationContext(),
                                         "Terjadi Kesalahan",
@@ -376,5 +377,41 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         });
         MyApplication.getInstance().addToReqQueue(request);
     }
+
+
+    public void savedSucced(){
+        new MaterialDialog.Builder(atur_jadwal.this)
+                .title("Pengaturan Berhasil")
+                .items(R.array.menu_jadwal)
+                .negativeText("Lewati")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        switch(which){
+                            case 0:
+                                Intent intent = new Intent(getApplicationContext(), pilih_personil.class);
+                                intent.putExtra("idJadwal", mId_jadwal);
+                                startActivity(intent);
+                                finish();
+                                break;
+                            case 1:
+                                Intent intSurat = new Intent(getApplicationContext(), tambah_surat_perintah.class);
+                                intSurat.putExtra("idJadwal", mId_jadwal);
+                                startActivity(intSurat);
+                                finish();
+                        }
+                    }
+                })
+                .show();
+    }
 }
+
+
 

@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".json_handler.MyApplication"
         android:allowBackup="true"
@@ -22,13 +27,8 @@
             android:name=".MainActivity"
             android:label="SISFOGIAT"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".tambah.tambah_kategori" />
         <activity android:name=".tambah.tambah_satlantas" />
         <activity android:name=".tambah.tambah_personil" />
         <activity android:name=".tambah.tambah_kegiatan" />
@@ -37,9 +37,7 @@
         <activity android:name=".tambah.tambah_laporan" />
         <activity android:name=".daftar.daftar_personil" />
         <activity android:name=".daftar.daftar_satlantas" />
-        <activity
-            android:name=".detail.detail_satlantas"
-            android:theme="@style/AppTheme.popTheme" />
+        <activity android:name=".detail.detail_satlantas" />
         <activity
             android:name=".detail.detail_personil"
             android:theme="@style/AppTheme.popTheme" />
@@ -47,7 +45,19 @@
         <activity android:name=".daftar.daftar_kegiatan" />
         <activity android:name=".detail.detail_kegiatan" />
         <activity android:name=".jadwal.atur_jadwal" />
-        <activity android:name=".jadwal.pilih_personil"></activity>
+        <activity android:name=".jadwal.pilih_personil" />
+        <activity android:name=".edit.edit_kategori" />
+        <activity android:name=".edit.edit_kegiatan" />
+        <activity android:name=".edit.edit_personil" />
+        <activity android:name=".edit.edit_satlantas" />
+        <activity android:name=".tambah.tambah_kategori" />
+        <activity android:name=".jadwal.daftar_jadwal" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

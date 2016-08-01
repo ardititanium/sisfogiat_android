@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
+import com.mipro.ard.penajdwalan.edit.edit_kegiatan;
 import com.mipro.ard.penajdwalan.jadwal.atur_jadwal;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -20,7 +21,7 @@ public class detail_kegiatan extends AppCompatActivity {
     TextView idKegiatan_tv, namaKegiatan_tv, namaLokasi_tv, detailLokasi_tv, alamatLokasi_tv, status_tv, bagian_tv, deskripsi_tv, namaKategori_tv, namaSatuan_tv, kota_tv;
     Bundle dataGiat;
     ImageButton btn_back;
-    Button btn_atur_jadwal;
+    Button btn_atur_jadwal, hapus_btn, edit_btn;
     String id_giat, nama_giat;
 
     @Override
@@ -40,6 +41,8 @@ public class detail_kegiatan extends AppCompatActivity {
         namaSatuan_tv = (TextView) findViewById(R.id.det_sat_giat);
         kota_tv = (TextView) findViewById(R.id.det_kota_giat);
         btn_atur_jadwal = (Button) findViewById(R.id.det_btn_atur);
+        hapus_btn = (Button) findViewById(R.id.hapus_pers);
+        edit_btn = (Button) findViewById(R.id.edit_pers);
 
 
         dataGiat = getIntent().getExtras();
@@ -49,9 +52,13 @@ public class detail_kegiatan extends AppCompatActivity {
         nama_giat = ambilIntent("nama_giat");
 
 
+
+
+
+
         namaKegiatan_tv.setText(ambilIntent("nama_giat"));
         namaKategori_tv.setText(ambilIntent("kat_giat"));
-        deskripsi_tv.setText(ambilIntent("dek_giat"));
+        deskripsi_tv.setText(ambilIntent("desk_giat"));
         namaLokasi_tv.setText(ambilIntent("lokasi_giat"));
         detailLokasi_tv.setText(ambilIntent("dl_giat"));
         alamatLokasi_tv.setText(ambilIntent("al_giat"));
@@ -90,6 +97,38 @@ public class detail_kegiatan extends AppCompatActivity {
 
                 Intent backInt = new Intent(getApplicationContext(), daftar_kegiatan.class);
                 startActivity(backInt);
+            }
+        });
+
+
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bundle dataGiat = new Bundle();
+
+                dataGiat.putString("id_giat", id_giat);
+                dataGiat.putString("nama_giat", namaKegiatan_tv.getText().toString());
+                dataGiat.putString("lokasi_giat", namaLokasi_tv.getText().toString());
+                dataGiat.putString("dl_giat", detailLokasi_tv.getText().toString());
+                dataGiat.putString("al_giat", alamatLokasi_tv.getText().toString());
+                dataGiat.putString("kota_giat", kota_tv.getText().toString());
+                dataGiat.putString("status_giat", status_tv.getText().toString());
+                dataGiat.putString("bagian_giat", bagian_tv.getText().toString());
+                dataGiat.putString("desk_giat", deskripsi_tv.getText().toString());
+                dataGiat.putString("kat_giat", namaKategori_tv.getText().toString());
+                dataGiat.putString("satuan_giat", namaSatuan_tv.getText().toString());
+
+                Intent editInt = new Intent(getApplicationContext(), edit_kegiatan.class);
+                editInt.putExtras(dataGiat);
+                startActivity(editInt);
+            }
+        });
+
+        hapus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

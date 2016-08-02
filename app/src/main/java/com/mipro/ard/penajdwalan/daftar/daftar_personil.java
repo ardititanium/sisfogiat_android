@@ -24,6 +24,7 @@ import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.ListItemSatlantas;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.SatlantasRecyclerAdapter;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+import com.mipro.ard.penajdwalan.tambah.tambah_personil;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import org.json.JSONArray;
@@ -65,6 +66,18 @@ public class daftar_personil extends AppCompatActivity {
                 finish();
             }
         });
+
+        m_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addInt = new Intent(daftar_personil.this, tambah_personil.class);
+                startActivity(addInt);
+            }
+        });
+
+        if (parser.AKSES_SHARED_PREF.equals("user")){
+            m_add_btn.setVisibility(View.GONE);
+        }
 
 
         recyclerView = (RecyclerView) findViewById(R.id.rec_personil);

@@ -97,7 +97,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
     private void UpdateList(){
 
-        String urlPers = "http://"+ parser.IP_PUBLIC + "/ditlantas/json/persterlibat/view.php?idj="+idJadwal;
+
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 parser.DATA_PERSONIL, null, new Response.Listener<JSONObject>() {
 

@@ -23,6 +23,7 @@ import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
+import com.mipro.ard.penajdwalan.detail.detail_satlantas;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
@@ -54,13 +55,12 @@ public class edit_satlantas extends AppCompatActivity {
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_done_btn = (ImageButton) findViewById(R.id.search_btn);
 
-        title_bar.setText("TAMBAH SATLANTAS");
+        title_bar.setText("EDIT SATLANTAS");
 
         m_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back_home = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(back_home);
+                finish();
             }
         });
 
@@ -68,6 +68,7 @@ public class edit_satlantas extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insert();
+
 
             }
         });

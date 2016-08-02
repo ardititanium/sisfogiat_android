@@ -73,7 +73,6 @@ public class daftar_jadwal extends AppCompatActivity {
                 }
 
                 url = "http://"+parser.IP_PUBLIC+"/ditlantas/json/jadwal/view.php?thn="+params_thn+"&bln="+temp_bln+"&tgl="+params_tgl;
-                Log.d("URLLISTENER", url);
                 updateList();
             }
         });

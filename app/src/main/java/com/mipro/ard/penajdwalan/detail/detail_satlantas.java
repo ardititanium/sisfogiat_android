@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.edit.edit_satlantas;
+import com.mipro.ard.penajdwalan.json_handler.parser;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -17,6 +19,7 @@ public class detail_satlantas extends AppCompatActivity {
     TextView det_nama_tv, det_alamat_tv, det_id_sat;
     Button edit_btn, hapus_btn;
     Bundle setSat;
+    ImageButton kembali_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +30,10 @@ public class detail_satlantas extends AppCompatActivity {
         det_alamat_tv = (TextView) findViewById(R.id.alamat_sat_det);
         edit_btn = (Button) findViewById(R.id.edit_sat);
         hapus_btn = (Button) findViewById(R.id.hapus_sat);
+        kembali_btn = (ImageButton) findViewById(R.id.kembali_btn);
 
         Bundle dataSat = getIntent().getExtras();
         setSat = new Bundle();
-
-//        DisplayMetrics dm_satlantas = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(dm_satlantas);
-//
-//        int width = dm_satlantas.widthPixels;
-//        int heigh = dm_satlantas.heightPixels;
-//
-//        getWindow().setLayout((int)(width*.8), (int)(heigh*.6));
 
         det_id_sat.setText(dataSat.getCharSequence("idSatuan"));
         det_nama_tv.setText(dataSat.getCharSequence("namaSatuan"));
@@ -45,6 +41,15 @@ public class detail_satlantas extends AppCompatActivity {
 
         final String detNama = WordUtils.capitalize(det_nama_tv.getText().toString());
         final String detAlamat = WordUtils.capitalizeFully(det_alamat_tv.getText().toString());
+
+
+        if (parser.AKSES_SHARED_PREF.equals("user")){
+            edit_btn.setVisibility(View.GONE);
+            hapus_btn.setVisibility(View.GONE);
+        }
+
+
+
 
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +63,13 @@ public class detail_satlantas extends AppCompatActivity {
                 startActivity(editInt);
 
 
+            }
+        });
+
+        kembali_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.edit.edit_kategori;
+import com.mipro.ard.penajdwalan.json_handler.parser;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
     private List<ListItemKategori> listItemListKategori;
     private Context context;
     private int focusedItem;
+    TextView id_kat_tv, nama_kat_tv;
+    Bundle dataKat = new Bundle();
 
     public KategoriRecyclerAdapter(Context context, List<ListItemKategori> listItemListKategori) {
         this.listItemListKategori = listItemListKategori;
@@ -34,51 +37,20 @@ public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_kategori, parent, false);
         final ListRowViewHolderKategori holder = new ListRowViewHolderKategori(v);
 
-        final TextView id_kat_tv= new ListRowViewHolderKategori(v).id_tv;
-        final TextView nama_kat_tv = new ListRowViewHolderKategori(v).nama_kat_tv;
+        id_kat_tv= new ListRowViewHolderKategori(v).id_tv;
+        nama_kat_tv = new ListRowViewHolderKategori(v).nama_kat_tv;
+
+
+
+
 
         holder.rLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Bundle dataKat = new Bundle();
-                new MaterialDialog.Builder(context)
-                        .title(nama_kat_tv.getText().toString())
-                        .items(R.array.dialog_menu1)
-                        .itemsIds(R.array.dialog_menu1_id)
-                        .itemsCallback(new MaterialDialog.ListCallback() {
-                            @Override
-                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                if (which == 0){
-                                    new MaterialDialog.Builder(context)
-                                            .title(nama_kat_tv.getText().toString())
-                                            .content("Yakin akan menghapus " + nama_kat_tv.getText().toString())
-                                            .positiveText("Hapus")
-                                            .negativeText("Batal")
-                                            .show();
-                                }else {
-                                    String id_kat_str = id_kat_tv.getText().toString();
-                                    String nama_kat_str =  nama_kat_tv.getText().toString();
+                if (parser.AKSES_SHARED_PREF.equalsIgnoreCase("admin")){
+                    showDialog();
+                }
 
-                                    dataKat.putString("id_kat", id_kat_str);
-                                    dataKat.putString("nama_kat", nama_kat_str);
-
-                                    Intent editIntent = new Intent(context, edit_kategori.class);
-                                    editIntent.putExtras(dataKat);
-                                    context.startActivity(editIntent);
-
-                                }
-
-//
-//                                if (view.getId() == 0) {
-//                                    Toast.makeText(context, which + ": " + text + ", ID = " + view.getId(), Toast.LENGTH_SHORT).show();
-
-
-//                                }else if (){
-
-//                                }
-                            }
-                        })
-                        .show();
             }
         });
 
@@ -108,5 +80,38 @@ public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
     @Override
     public int getItemCount() {
         return (null != listItemListKategori ? listItemListKategori.size() : 0);
+    }
+
+    public void showDialog(){
+        new MaterialDialog.Builder(context)
+                .title(nama_kat_tv.getText().toString())
+                .items(R.array.dialog_menu1)
+                .itemsIds(R.array.dialog_menu1_id)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (which == 0){
+                            new MaterialDialog.Builder(context)
+                                    .title(nama_kat_tv.getText().toString())
+                                    .content("Yakin akan menghapus " + nama_kat_tv.getText().toString())
+                                    .positiveText("Hapus")
+                                    .negativeText("Batal")
+                                    .show();
+                        }else {
+                            String id_kat_str = id_kat_tv.getText().toString();
+                            String nama_kat_str =  nama_kat_tv.getText().toString();
+
+                            dataKat.putString("id_kat", id_kat_str);
+                            dataKat.putString("nama_kat", nama_kat_str);
+
+                            Intent editIntent = new Intent(context, edit_kategori.class);
+                            editIntent.putExtras(dataKat);
+                            context.startActivity(editIntent);
+
+                        }
+
+                    }
+                })
+                .show();
     }
 }

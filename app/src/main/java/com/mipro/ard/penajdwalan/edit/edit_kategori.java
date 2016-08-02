@@ -50,6 +50,8 @@ public class edit_kategori extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_kategori);
 
+
+
         title_bar = (TextView) findViewById(R.id.bar_title);
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_done_btn = (ImageButton) findViewById(R.id.search_btn);
@@ -71,6 +73,9 @@ public class edit_kategori extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
         initViews();

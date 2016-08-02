@@ -24,6 +24,7 @@ import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.ListItemSatlantas;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.SatlantasRecyclerAdapter;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+import com.mipro.ard.penajdwalan.tambah.tambah_kegiatan;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import org.json.JSONArray;
@@ -67,6 +68,14 @@ public class daftar_kegiatan extends AppCompatActivity {
             }
         });
 
+        m_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addInt = new Intent(daftar_kegiatan.this, tambah_kegiatan.class);
+                startActivity(addInt);
+            }
+        });
+
         recyclerView = (RecyclerView) findViewById(R.id.rec_kegiatan);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
 
@@ -78,6 +87,10 @@ public class daftar_kegiatan extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
+
+        if(parser.AKSES_SHARED_PREF.equals("user")){
+            m_add_btn.setVisibility(View.GONE);
+        }
 
 
     }
@@ -104,6 +117,7 @@ public class daftar_kegiatan extends AppCompatActivity {
 
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject listGiat = jsonArray.getJSONObject(i);
+
                         ListItemKegiatan item = new ListItemKegiatan();
 
                         item.setNamaKegiatan(listGiat.getString("namaKegiatan"));

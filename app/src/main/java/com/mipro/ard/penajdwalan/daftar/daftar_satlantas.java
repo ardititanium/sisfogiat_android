@@ -22,6 +22,7 @@ import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.ListItemSatlantas;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.SatlantasRecyclerAdapter;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+import com.mipro.ard.penajdwalan.tambah.tambah_satlantas;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import org.json.JSONArray;
@@ -55,6 +56,10 @@ public class daftar_satlantas extends AppCompatActivity {
         m_add_btn = (ImageButton) findViewById(R.id.add_btn);
 
 
+        if(parser.AKSES_SHARED_PREF.equals("user")){
+            m_add_btn.setVisibility(View.GONE);
+        }
+
         title_bar.setText("DAFTAR SATLANTAS");
 
         m_back_btn.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +68,14 @@ public class daftar_satlantas extends AppCompatActivity {
                 Intent back_home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(back_home);
                 finish();
+            }
+        });
+
+        m_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intAdd = new Intent(daftar_satlantas.this, tambah_satlantas.class);
+                startActivity(intAdd);
             }
         });
 

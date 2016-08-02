@@ -33,19 +33,26 @@
 
     <EditText
         android:drawableLeft="@drawable/account"
+        android:drawablePadding="8dp"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:id="@+id/nrp_login"
         android:background="@drawable/rounded_et"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:maxLines="1"
+        />
 
     <EditText
         android:drawableLeft="@drawable/lock_open"
+        android:drawablePadding="8dp"
+        android:maxLines="1"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:id="@+id/pass_login"
         android:background="@drawable/rounded_et"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:inputType="textPassword"
+        />
 
     <Button
         android:layout_width="280dp"

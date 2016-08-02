@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.opengl.Visibility;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,14 +15,15 @@ import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.edit.edit_kegiatan;
 import com.mipro.ard.penajdwalan.jadwal.atur_jadwal;
+import com.mipro.ard.penajdwalan.json_handler.parser;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-public class detail_kegiatan extends AppCompatActivity {
+public class detail_kegiatan extends AppCompatActivity{
     TextView idKegiatan_tv, namaKegiatan_tv, namaLokasi_tv, detailLokasi_tv, alamatLokasi_tv, status_tv, bagian_tv, deskripsi_tv, namaKategori_tv, namaSatuan_tv, kota_tv;
     Bundle dataGiat;
     ImageButton btn_back;
-    Button btn_atur_jadwal, hapus_btn, edit_btn;
+    Button btn_atur_jadwal, btn_lihat_jadwal, hapus_btn, edit_btn;
     String id_giat, nama_giat;
 
     @Override
@@ -41,6 +43,7 @@ public class detail_kegiatan extends AppCompatActivity {
         namaSatuan_tv = (TextView) findViewById(R.id.det_sat_giat);
         kota_tv = (TextView) findViewById(R.id.det_kota_giat);
         btn_atur_jadwal = (Button) findViewById(R.id.det_btn_atur);
+        btn_lihat_jadwal = (Button) findViewById(R.id.det_btn_lihat);
         hapus_btn = (Button) findViewById(R.id.hapus_pers);
         edit_btn = (Button) findViewById(R.id.edit_pers);
 
@@ -74,7 +77,10 @@ public class detail_kegiatan extends AppCompatActivity {
         if (status_in.equals("Selesai")) {
             status_tv.setBackgroundResource(R.drawable.rounded_square);
             btn_atur_jadwal.setVisibility(View.GONE);
+            btn_lihat_jadwal.setVisibility(View.VISIBLE);
         }else {
+            btn_lihat_jadwal.setVisibility(View.GONE);
+            btn_atur_jadwal.setVisibility(View.VISIBLE);
             status_tv.setBackgroundResource(R.drawable.rounded_square_g);
             btn_atur_jadwal.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,6 +141,16 @@ public class detail_kegiatan extends AppCompatActivity {
 
 
 
+        if(parser.AKSES_SHARED_PREF.equals("user")){
+            hapus_btn.setVisibility(View.GONE);
+            edit_btn.setVisibility(View.GONE);
+            btn_atur_jadwal.setVisibility(View.GONE);
+        }
+
+
+
+
+
     }
 
     String ambilIntent(String giat){
@@ -142,4 +158,6 @@ public class detail_kegiatan extends AppCompatActivity {
         String convert = WordUtils.capitalize(giat);
         return convert;
     }
+
+
 }

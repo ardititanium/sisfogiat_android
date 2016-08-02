@@ -22,6 +22,7 @@ import com.mipro.ard.penajdwalan.RecyclerHandler.l.kategori.KategoriRecyclerAdap
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.kategori.ListItemKategori;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+import com.mipro.ard.penajdwalan.tambah.tambah_kategori;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import org.json.JSONArray;
@@ -65,6 +66,15 @@ public class daftar_kategori extends AppCompatActivity {
             }
         });
 
+
+
+        m_add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addInt = new Intent(daftar_kategori.this, tambah_kategori.class);
+            }
+        });
+
         recyclerView = (RecyclerView) findViewById(R.id.rec_kategori);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
 
@@ -76,6 +86,10 @@ public class daftar_kategori extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
+
+        if (parser.AKSES_SHARED_PREF.equalsIgnoreCase("user")){
+            m_add_btn.setVisibility(View.GONE);
+        }
     }
 
     private void updateList() {

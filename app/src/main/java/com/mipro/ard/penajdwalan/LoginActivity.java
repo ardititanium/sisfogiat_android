@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
@@ -18,6 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         login();
+
     }
 
     @Override
@@ -76,8 +80,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putBoolean(parser.LOGGEDIN_SHARED_PREF, true);
                             editor.putString(parser.NRP_SHARED_PREF, get_nrp);
                             editor.commit();
-                            
+
+                            Log.d("isiNrp", parser.NRP_SHARED_PREF);
+
                             Intent login = new Intent(LoginActivity.this, MainActivity.class);
+                            login.putExtra("nrp", get_nrp);
                             startActivity(login);
                         }else {
                             new MaterialDialog.Builder(LoginActivity.this)
@@ -104,8 +111,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         };
-        Log.d("ISI USER", get_nrp +" "+ get_pass);
         MyApplication.getInstance().addToReqQueue(stringRequest);
     }
+
+
 
 }

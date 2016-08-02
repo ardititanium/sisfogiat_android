@@ -107,10 +107,11 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/KEGIATAN"
@@ -133,11 +134,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_below="@id/bar_daftar"
                 android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -160,10 +162,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/textView3"
@@ -194,7 +197,10 @@
             android:layout_below="@id/statWrap"
             android:orientation="vertical"
             android:gravity="center_vertical|center_horizontal">
-
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#99dddddd"/>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -202,14 +208,21 @@
                 android:gravity="center_vertical|center_horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/account_type"
+                    android:drawablePadding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Pengguna Biasa"
                     android:id="@+id/akses_pers"
                     android:textColor="@color/bgColor"
+                    android:gravity="center_vertical"
                     android:textSize="14dp" />
             </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#99dddddd"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -218,15 +231,22 @@
                 android:gravity="center_vertical|center_horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/gender"
+                    android:drawablePadding="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Laki - Laki"
                     android:id="@+id/kelamin_pers"
                     android:textColor="@color/bgColor"
+                    android:gravity="center_vertical"
                     android:textSize="14dp" />
 
             </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#99dddddd"/>
 
         </LinearLayout>
 

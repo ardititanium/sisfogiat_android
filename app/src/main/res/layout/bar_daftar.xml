@@ -14,8 +14,8 @@
             android:layout_width = "?android:attr/actionBarSize"
             android:layout_height = "?android:attr/actionBarSize"
             android:src="@drawable/left_arr_ic"
-            android:layout_alignParentLeft = "true"
-            android:background="@android:color/transparent" />
+            android:background="#e74c3c"
+            android:layout_alignParentLeft = "true"/>
         <TextView
             android:layout_width = "210dp"
             android:layout_height = "?android:attr/actionBarSize"
@@ -28,19 +28,23 @@
             android:textColor="#fff"
             android:textAlignment="textStart"
             android:paddingLeft="16dp" />
-        <ImageButton
-            android:id = "@+id/search_btn"
-            android:layout_width = "?android:attr/actionBarSize"
-            android:layout_height = "?android:attr/actionBarSize"
-            android:src="@drawable/abc_ic_search_api_mtrl_alpha"
-            android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/add_btn"
             android:layout_width="?android:attr/actionBarSize"
             android:layout_height="?android:attr/actionBarSize"
             android:src="@drawable/fab_add"
-            android:layout_alignParentRight="true"
+
             android:background="@android:color/transparent" />
+
     </LinearLayout>
+
+    <ImageButton
+        android:id = "@+id/search_btn"
+        android:layout_width = "?android:attr/actionBarSize"
+        android:layout_height = "?android:attr/actionBarSize"
+        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>

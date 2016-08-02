@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -20,20 +21,37 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.clans.fab.FloatingActionMenu;
 import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
 import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
 import com.mipro.ard.penajdwalan.jadwal.daftar_jadwal;
+import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 import com.mipro.ard.penajdwalan.tambah.*;
 import com.github.clans.fab.FloatingActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    TextView nrp_tv, nama_tv, coba;
+    String nrp_params;
+    String nrp_str, nama_str, satuan_str, pangkat_str, jk_str, pass_str, akses_str;
+    FloatingActionMenu fam;
 
-    TextView nrp_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +59,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        coba = (TextView) findViewById(R.id.coba_nama);
+        fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
+
+
+
         fabOnClick();
 
 
-
+        Intent getNrp = getIntent();
+        nrp_params = getNrp.getStringExtra("nrp");
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -58,11 +83,19 @@ public class MainActivity extends AppCompatActivity
 
         View header = navigationView.getHeaderView(0);
         nrp_tv = (TextView) header.findViewById(R.id.nrp_user);
+        nama_tv = (TextView) header.findViewById(R.id.namaUser);
 
 
         SharedPreferences sharedPreferences = getSharedPreferences(parser.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String nrp_login = sharedPreferences.getString(parser.NRP_SHARED_PREF, "Not Available");
+        String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/personil/view_detail.php?nrp="+nrp_login;
+        Log.d("URL", url);
         nrp_tv.setText(nrp_login);
+        getDataUser(url);
+
+
+
+
 
 
 
@@ -234,6 +267,62 @@ public class MainActivity extends AppCompatActivity
                     }
                 })
                 .show();
+    }
+
+    public void getDataUser(String url_source){
+
+        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.GET, url_source, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject("data");
+                            JSONArray jsonArray = jsonObject.getJSONArray("personil");
+                            JSONObject dataPers = jsonArray.getJSONObject(0);
+                            String jk_temp, satuan_temp;
+
+
+
+                            nrp_str     = dataPers.getString("nrp");
+                            nama_str    = dataPers.getString("namaLengkap");
+                            pangkat_str = dataPers.getString("pangkat");
+                            pass_str    = dataPers.getString("password");
+                            akses_str   = dataPers.getString("hakAkses");
+                            satuan_str  = dataPers.getString("namaSatuan");
+
+                            nama_tv.setText(nama_str);
+
+                            if (akses_str.equals("user")){
+                                fam.setVisibility(View.GONE);
+                            }
+
+                            parser.AKSES_SHARED_PREF = akses_str;
+
+
+                            jk_temp = dataPers.getString("kelamin");
+                            if (jk_temp.equalsIgnoreCase("L")){
+                                jk_str =  "Laki - Laki";
+                            }else {
+                                jk_str = "Perempuan";
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        MyApplication.getInstance().addToReqQueue(jsonObjectRequest);
+
+        coba.setText("adasdsda");
+
     }
 
 

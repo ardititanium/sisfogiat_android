@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
 import com.mipro.ard.penajdwalan.edit.edit_personil;
+import com.mipro.ard.penajdwalan.json_handler.parser;
 
 import org.w3c.dom.Text;
 
@@ -72,6 +73,12 @@ public class detail_personil extends AppCompatActivity {
                 editPersonil();
             }
         });
+
+
+        if (parser.AKSES_SHARED_PREF.equals("user")){
+            edit_btn.setVisibility(View.GONE);
+            hapus_btn.setVisibility(View.GONE);
+        }
 
     }
 

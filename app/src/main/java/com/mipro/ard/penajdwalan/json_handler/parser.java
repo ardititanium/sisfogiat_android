@@ -29,6 +29,8 @@ public class parser {
     // PEROSNIL LOADER
     public static final String DATA_PERSONIL = "http://"+ IP_PUBLIC +"/ditlantas/json/personil/view.php";
 
+
+
     // KEGIATAN LOADER
     public static final String DATA_KEGIATAN= "http://"+ IP_PUBLIC +"/ditlantas/json/kegiatan/view.php";
 
@@ -44,7 +46,7 @@ public class parser {
 
     public static final String NRP_SHARED_PREF      = "nrp";
     public static final String NAMA_SHARED_PREF     = "nama";
-    public static final String AKSES_SHARED_PREF    = "akses";
+    public static String AKSES_SHARED_PREF;
     public static final String ID_SHARED_PREF       = "id";
     public static final String SATUAN_SHARED_PREF   = "satuan";
     public static final String PASS_SHARED_PREF     = "pass";

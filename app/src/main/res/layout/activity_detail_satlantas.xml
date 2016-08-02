@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     tools:context="com.mipro.ard.penajdwalan.detail.detail_satlantas"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/rounded_square_b_stroke"
-    >
+    android:gravity="center_horizontal">
+
+    <include layout="@layout/bar_detail">
+
+    </include>
 
 
     <TextView

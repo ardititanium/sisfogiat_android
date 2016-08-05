@@ -33,7 +33,7 @@ public class detail_jadwal extends AppCompatActivity implements View.OnClickList
     TextView namKegiatan, kategori, desk, tglMulai, tglSelesai, jamMulai, jamSelesai, namLokasi, detaiLokasi, alamatLokasi, kota, bagian, satuan;
     ProgressDialog PD;
     ImageButton back_btn, edit_btn;
-    String idGiat, status, idJadwal;
+    String idGiat, status, idJadwal, namaGiatStr, tglMulai_send, tglSelesai_send, jamMulai_send, jamSelesai_send;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +70,7 @@ public class detail_jadwal extends AppCompatActivity implements View.OnClickList
         Bundle getId = getIntent().getExtras();
         idJadwal = getId.getString("idJadwal");
         idGiat = getId.getString("idGiat");
+
 
 
         String url = "http://" + parser.IP_PUBLIC+"/ditlantas/json/jadwal/detail.php?giat="+idGiat;
@@ -116,6 +117,13 @@ public class detail_jadwal extends AppCompatActivity implements View.OnClickList
                             bagian.setText(bagian_str);
                             satuan.setText(satuan_str);
 
+
+                            namaGiatStr = namKegiatan.getText().toString();
+                            tglMulai_send = tglMulai.getText().toString();
+                            tglSelesai_send = tglSelesai.getText().toString();
+                            jamMulai_send = jamMulai.getText().toString();
+                            jamSelesai_send = jamSelesai.getText().toString();
+
                             back_btn.setOnClickListener(detail_jadwal.this);
                             edit_btn.setOnClickListener(detail_jadwal.this);
 
@@ -156,8 +164,19 @@ public class detail_jadwal extends AppCompatActivity implements View.OnClickList
                             public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                                switch (which){
                                    case 0:
-                                       Intent editJadwal = new Intent(detail_jadwal.this, atur_jadwal.class);
+                                       Bundle setGiat = new Bundle();
+
+                                       setGiat.putString("id_giat", idGiat);
+                                       setGiat.putString("nama_giat", namaGiatStr);
+                                       setGiat.putString("tgl_mulai", tglMulai_send);
+                                       setGiat.putString("tgl_selesai", tglSelesai_send);
+                                       setGiat.putString("jam_mulai", jamMulai_send);
+                                       setGiat.putString("jam_selesai", jamSelesai_send);
+
+                                       Intent editJadwal = new Intent(detail_jadwal.this, edit_jadwal.class);
+                                       editJadwal.putExtras(setGiat);
                                        startActivity(editJadwal);
+
                                        break;
                                    case 1:
                                        editKegiatain();

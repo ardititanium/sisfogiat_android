@@ -43,6 +43,7 @@
         <activity android:name=".daftar.daftar_kegiatan" />
         <activity android:name=".detail.detail_kegiatan" />
         <activity android:name=".jadwal.atur_jadwal" />
+        <activity android:name=".jadwal.edit_jadwal" />
         <activity android:name=".jadwal.pilih_personil" />
         <activity android:name=".edit.edit_kategori" />
         <activity android:name=".edit.edit_kegiatan" />

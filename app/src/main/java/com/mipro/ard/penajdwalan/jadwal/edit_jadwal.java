@@ -1,17 +1,15 @@
 package com.mipro.ard.penajdwalan.jadwal;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -40,8 +38,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class atur_jadwal extends AppCompatActivity implements View.OnClickListener{
-    String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/jadwal/insert.php";
+public class edit_jadwal extends AppCompatActivity implements View.OnClickListener{
+    String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/jadwal/edit.php";
     TextView id_giat_tv, nama_giat_tv;
     Bundle getData;
     TextView tgl_mulai_et, jam_mulai_et, tgl_selesai_et, jam_selesai_et, idJadwal_et;
@@ -49,6 +47,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
     ImageButton done_btn, back_btn;
     String mId_giat, mId_jadwal, mTglMulai, mTglSelesai, mJamMulai, mJamSelesai;
     ProgressDialog PD;
+    String idJadwal;
 
 
 
@@ -69,11 +68,32 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         done_btn = (ImageButton) findViewById(R.id.done_btn_jadwal);
         back_btn = (ImageButton) findViewById(R.id.back_btn_jadwal);
 
-
-
+        idJadwal_et.setText("EDIT JADWAL");
 
         id_giat_tv.setText(ambilIntent("id_giat"));
         nama_giat_tv.setText(ambilIntent("nama_giat"));
+        jam_mulai_et.setText(ambilIntent("jam_mulai"));
+        jam_selesai_et.setText(ambilIntent("jam_selesai"));
+
+
+        SimpleDateFormat myd    = new SimpleDateFormat("dd - MMM - yyyy");
+        SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        try {
+            String tglMulai_con         = df.format(myd.parse(ambilIntent("tgl_mulai")));
+            String tglSelesai_con         = df.format(myd.parse(ambilIntent("tgl_selesai")));
+
+            tgl_mulai_et.setText(tglMulai_con);
+            tgl_selesai_et.setText(tglSelesai_con);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
         tgl_mulai_et.setOnClickListener(this);
         jam_mulai_et.setOnClickListener(this);
@@ -85,7 +105,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         PD.setMessage("Loading.....");
         PD.setCancelable(false);
 
-        setID();
+//        setID();
 
 
        }
@@ -249,13 +269,13 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         String hasil = String.valueOf(mulaiDate.compareTo(selesaiDate));
 
         if(hasil.equals("1")){
-            new MaterialDialog.Builder(atur_jadwal.this)
+            new MaterialDialog.Builder(edit_jadwal.this)
                     .title("Terjadi Kesalahan")
                     .content("Pastikan Tanggal Selesai tidak lebih kecil dari Tanggal Mulai")
                     .positiveText("Ulangi")
                     .show();
         }else if (hasil.equals("0") && (jamMulai.equals("Jam Mulai")) && (jamSelesai.equals("Jam Selesai"))){
-            new MaterialDialog.Builder(atur_jadwal.this)
+            new MaterialDialog.Builder(edit_jadwal.this)
                     .title("Terjadi Kesalahan")
                     .content("Pastikan Anda Telah Mengisi Jam Mulai Sebelum Mengubah Tanggal Selesai")
                     .positiveText("OKE")
@@ -288,7 +308,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
             int strJamSelesai = Integer.parseInt(jamSelesai.substring(0,2));
 
             if (strJamSelesai < strJamMulai ){
-                new MaterialDialog.Builder(atur_jadwal.this)
+                new MaterialDialog.Builder(edit_jadwal.this)
                         .title("Terjadi Kesalahan")
                         .content("Jika Kegiatan dilaksanakan hanya 1 hari, pastikan anda mengisi JAM SELESAI lebih Besar dari JAM MULAI")
                         .positiveText("OKE")
@@ -300,6 +320,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
 
 
     public void insert(){
+        mId_jadwal = idJadwal_et.getText().toString();
         mId_giat = id_giat_tv.getText().toString();
         mTglMulai = tgl_mulai_et.getText().toString();
         mTglSelesai = tgl_selesai_et.getText().toString();
@@ -349,6 +370,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
         };
 
         MyApplication.getInstance().addToReqQueue(postRequest);
+        Log.d("isiParam", mId_jadwal+" "+mTglMulai+" "+mJamMulai+" "+mTglSelesai+" "+mJamSelesai);
     }
 
     public void setID(){
@@ -378,7 +400,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
 
 
     public void savedSucced(){
-        new MaterialDialog.Builder(atur_jadwal.this)
+        new MaterialDialog.Builder(edit_jadwal.this)
                 .title("Pengaturan Berhasil")
                 .items(R.array.menu_jadwal)
                 .negativeText("Lewati")

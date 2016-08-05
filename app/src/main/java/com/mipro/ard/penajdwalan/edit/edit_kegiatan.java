@@ -120,8 +120,6 @@ public class edit_kegiatan extends AppCompatActivity {
         spin_bagian.setAdapter(bagian_adapter);
         spin_status.setAdapter(status_adapter);
 
-        String str_id = getGiat.getCharSequence("id_giat").toString();
-
         et_id.setText(String.valueOf(getGiat.getCharSequence("id_giat")));
         et_nama.setText(String.valueOf(getGiat.getCharSequence("nama_giat")));
         et_lokasi.setText(String.valueOf(getGiat.getCharSequence("lokasi_giat")));
@@ -129,7 +127,6 @@ public class edit_kegiatan extends AppCompatActivity {
         et_ALokasi.setText(String.valueOf(getGiat.getCharSequence("al_giat")));
         et_kota.setText(String.valueOf(getGiat.getCharSequence("kota_giat")));
         et_desk.setText(String.valueOf(getGiat.getCharSequence("desk_giat")));
-
 
 
         PD = new ProgressDialog(this);

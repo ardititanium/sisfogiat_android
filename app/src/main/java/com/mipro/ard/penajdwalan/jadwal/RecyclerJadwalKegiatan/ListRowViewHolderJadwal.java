@@ -11,13 +11,16 @@ import com.mipro.ard.penajdwalan.R;
  * Created by ard on 7/26/2016.
  */
 public class ListRowViewHolderJadwal extends RecyclerView.ViewHolder {
-    protected TextView namaKegiatan, jamMulai, lokasi;
+    protected TextView namaKegiatan, jamMulai, lokasi, idJadwal, idKegiatan;
     protected RelativeLayout rLayout;
     public ListRowViewHolderJadwal(View view) {
         super(view);
         this.namaKegiatan = (TextView) view.findViewById(R.id.nama_jadwal_kegiatan);
         this.jamMulai = (TextView) view.findViewById(R.id.waktu_jadwal);
         this.lokasi = (TextView) view.findViewById(R.id.lokasi_jadwal);
+        this.idJadwal = (TextView) view.findViewById(R.id.idJadwal_kegiatan);
+        this.idKegiatan = (TextView) view.findViewById(R.id.idKegiatan_kegiatan);
+
 
         this.rLayout = (RelativeLayout) view.findViewById(R.id.layout_holder_jadwal);
         view.setClickable(true);

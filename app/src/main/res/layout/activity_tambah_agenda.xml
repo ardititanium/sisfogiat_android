@@ -10,14 +10,78 @@
         layout="@layout/bar_test" />
 
     <LinearLayout
-        android:layout_below="@id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="hllow dunia"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        >
+
+
+        <EditText android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/rounded_square_transparent"
+            android:hint="Deskripsi"
+            android:id="@+id/desk_agenda_et"
+            android:padding="10dp"
+            android:gravity="bottom|start"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_square_transparent"
+            android:hint="Keterangan"
+            android:id="@+id/ket_agenda_et"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="bottom|start"/>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_square_transparent"
+                android:id="@+id/jamMulai_agenda_et"
+                android:layout_marginRight="10dp"
+                android:text="Jam Mulai"
+                android:gravity="center"/>
+
+            <TextView android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_square_transparent"
+                android:id="@+id/jamSelesai_agenda_et"
+                android:layout_marginRight="10dp"
+                android:text="Jam Selesai"
+                android:gravity="center"
+                />
+
+            <Button android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/add_agenda_btn"
+                android:background="@drawable/rounded_square"
+                android:text="Add"
+                />
+
+
+        </LinearLayout>>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rec_agenda_temp"/>
+
+
     </LinearLayout>
 </RelativeLayout>

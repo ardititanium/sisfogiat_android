@@ -299,14 +299,11 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
 
 
     public void insert(){
-
-
         mId_giat = id_giat_tv.getText().toString();
         mTglMulai = tgl_mulai_et.getText().toString();
         mTglSelesai = tgl_selesai_et.getText().toString();
         mJamMulai = jam_mulai_et.getText().toString();
         mJamSelesai = jam_selesai_et.getText().toString();
-
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -345,7 +342,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                 params.put("tglMulai", mTglMulai);
                 params.put("jamMulai", mJamMulai);
                 params.put("tglSelesai", mTglSelesai);
-                params.put("jamSelesai", mJamMulai);
+                params.put("jamSelesai", mJamSelesai);
                 return params;
             }
         };

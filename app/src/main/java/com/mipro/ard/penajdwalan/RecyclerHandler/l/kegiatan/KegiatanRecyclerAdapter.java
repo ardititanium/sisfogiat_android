@@ -105,7 +105,7 @@ public class KegiatanRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
         String icon_s = String.valueOf(icon_char).toUpperCase();
 
         holder.ic_giat_tv.setText(icon_s);
-        holder.id_tv.setText(listItemKegiatan.getIdKegiatan());
+            holder.id_tv.setText(listItemKegiatan.getIdKegiatan());
         holder.nama_giat_tv.setText(listItemKegiatan.getNamaKegiatan());
         holder.kategori_giat_tv.setText(listItemKegiatan.getNamaKategori());
         holder.lokasi_giat_tv.setText(listItemKegiatan.getNamaLokasi());

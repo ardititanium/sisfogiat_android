@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.detail.detail_kegiatan;
+import com.mipro.ard.penajdwalan.jadwal.detail_jadwal;
 
 import java.util.List;
 
@@ -32,14 +33,17 @@ public class JadwalRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHolde
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_jadwal, parent, false);
         final ListRowViewHolderJadwal holder = new ListRowViewHolderJadwal(v);
 
+        final TextView idJadwal_tv = new ListRowViewHolderJadwal(v).idJadwal;
+        final TextView idGiat_tv = new ListRowViewHolderJadwal(v).idKegiatan;
+
         holder.rLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle dataGiat = new Bundle();
-
-
-                Intent intent = new Intent(context, detail_kegiatan.class);
-                intent.putExtras(dataGiat);
+                String idJadwal = idJadwal_tv.getText().toString();
+                String idKegiatan = idGiat_tv.getText().toString();
+                Intent intent = new Intent(context, detail_jadwal.class);
+                intent.putExtra("idJadwal", idJadwal);
+                intent.putExtra("idGiat", idKegiatan);
                 context.startActivity(intent);
 
 
@@ -51,13 +55,18 @@ public class JadwalRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHolde
 
     @Override
     public void onBindViewHolder(ListRowViewHolderJadwal holder, int position) {
-        ListItemJadwal listItemKegiatan = listItemJadwals.get(position);
+        ListItemJadwal listItemJadwal = listItemJadwals.get(position);
         holder.itemView.setSelected(focusedItem == position);
         holder.getLayoutPosition();
 
-        holder.namaKegiatan.setText(listItemKegiatan.getNamaKegiatan());
-        holder.jamMulai.setText(listItemKegiatan.getJamMulai());
-        holder.lokasi.setText(listItemKegiatan.getNamaLokasi());
+        holder.namaKegiatan.setText(listItemJadwal.getNamaKegiatan());
+        holder.jamMulai.setText(listItemJadwal.getJamMulai());
+        holder.lokasi.setText(listItemJadwal.getNamaLokasi());
+        holder.idJadwal.setText(listItemJadwal.getIdJadwal());
+        holder.idKegiatan.setText(listItemJadwal.getIdKegiatan());
+
+        holder.idJadwal.setVisibility(View.GONE);
+        holder.idKegiatan.setVisibility(View.GONE);
 
     }
 

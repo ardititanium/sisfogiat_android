@@ -15,6 +15,7 @@ import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.edit.edit_kegiatan;
 import com.mipro.ard.penajdwalan.jadwal.atur_jadwal;
+import com.mipro.ard.penajdwalan.jadwal.detail_jadwal;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -78,6 +79,14 @@ public class detail_kegiatan extends AppCompatActivity{
             status_tv.setBackgroundResource(R.drawable.rounded_square);
             btn_atur_jadwal.setVisibility(View.GONE);
             btn_lihat_jadwal.setVisibility(View.VISIBLE);
+            btn_lihat_jadwal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent lihatJadwal = new Intent(detail_kegiatan.this, detail_jadwal.class);
+                    lihatJadwal.putExtra("idGiat", id_giat);
+                    startActivity(lihatJadwal);
+                }
+            });
         }else {
             btn_lihat_jadwal.setVisibility(View.GONE);
             btn_atur_jadwal.setVisibility(View.VISIBLE);

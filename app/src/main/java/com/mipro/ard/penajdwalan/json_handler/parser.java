@@ -5,7 +5,7 @@ package com.mipro.ard.penajdwalan.json_handler;
  */
 public class parser {
     //IP DEFAULT
-    public static final String IP_PUBLIC = "192.168.1.6";
+    public static final String IP_PUBLIC = "192.168.1.2";
 
     // SATALANTAS LOADER
     public static final String DATA_SAT_SPINNER = "http://"+ IP_PUBLIC +"/ditlantas/json/satlantas/view_spinner.php";

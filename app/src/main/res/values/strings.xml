@@ -87,12 +87,13 @@
     </string-array>
     <string name="title_activity_login">Sign in</string>
 
-
     <string-array name="menu_edit_jadwal">
         <item> Edit Jadwal </item>
         <item> Edit Kegiatan </item>
+        <item> Edit Personil Terlibat </item>
+        <item> Edit Surat Perintah </item>
+        <item> Pending Jadwal </item>
     </string-array>
-
 
 
 </resources>

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.jadwal.ItemClickListener;
 import com.mipro.ard.penajdwalan.jadwal.pilih_personil;
+
+import java.util.List;
 
 /**
  * Created by ard on 7/25/2016.
@@ -37,25 +40,14 @@ public class ListRowViewHolderPilihPersonil extends RecyclerView.ViewHolder{
         this.pilihPersonil = pilihPersonil;
 
 
-
-
         this.rLayout = (RelativeLayout) view.findViewById(R.id.layout_holder_pilihpersonil);
         view.setClickable(true);
 
 
     }
 
-    public void setItemClickListener(ItemClickListener ic){
-        this.itemClickListener = ic;
+    public List<ListItemPilihPersonil> getPersonilTerpilih(){
+        return getPersonilTerpilih();
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        pilihPersonil.preparedSelection(v, getAdapterPosition());
-////        Log.d("LIHAT POSISI", String.valueOf(getLayoutPosition()));
-////         this.itemClickListener.onItemClick(v, getAdapterPosition());
-//
-//    }
-
 
 }

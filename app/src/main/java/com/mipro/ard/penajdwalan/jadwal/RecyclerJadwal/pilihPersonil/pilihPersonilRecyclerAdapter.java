@@ -78,7 +78,6 @@ public class pilihPersonilRecyclerAdapter extends RecyclerView.Adapter<ListRowVi
             }
         });
 
-
         holder.rLayout.setOnLongClickListener(pilihPersonil);
 
         return holder;
@@ -102,13 +101,25 @@ public class pilihPersonilRecyclerAdapter extends RecyclerView.Adapter<ListRowVi
             holder.checkBox.setChecked(false);
         }
 
+        holder.checkBox.setChecked(listItemPilihPersonilList.get(position).isSelected());
+        holder.checkBox.setTag(listItemPilihPersonilList.get(position));
+
+
+        final int pos = position;
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pilihPersonil.preparedSelection(v, position);
-//                Log.d("POSISIKU DIMANA", String.valueOf(position+1));
+                CheckBox cb = (CheckBox) v;
+                ListItemPilihPersonil personil = (ListItemPilihPersonil) cb.getTag();
+                personil.setSelected(cb.isChecked());
+                listItemPilihPersonilList.get(pos).setSelected(cb.isChecked());
+
+                pilihPersonil.preparedSelection(v, pos);
+
+
             }
         });
+
 
 
 

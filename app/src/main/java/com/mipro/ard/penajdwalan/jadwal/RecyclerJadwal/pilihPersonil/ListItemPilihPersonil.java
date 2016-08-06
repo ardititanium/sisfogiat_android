@@ -5,6 +5,7 @@ package com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil;
  */
 public class ListItemPilihPersonil {
     String nrp, nama, pangkat, idjadwal;
+    private boolean selected;
 
     public String getNrp() {
         return nrp;
@@ -37,5 +38,13 @@ public class ListItemPilihPersonil {
 
     public void setIdjadwal(String idjadwal) {
         this.idjadwal = idjadwal;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

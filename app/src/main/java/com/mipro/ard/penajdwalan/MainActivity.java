@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity
         fab_surat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent add_surat = new Intent(getApplicationContext(), tambah_surat_perintah.class);
+                Intent add_surat = new Intent(getApplicationContext(), tambah_str.class);
                 startActivity(add_surat);
             }
         });

@@ -1,7 +1,6 @@
 package com.mipro.ard.penajdwalan.jadwal;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,13 +8,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +29,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.R;
-import com.mipro.ard.penajdwalan.RecyclerHandler.l.personil.ListItemPersonil;
-import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.ListItemPilihPersonil;
-import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.ListRowViewHolderPilihPersonil;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.pilihPersonilRecyclerAdapter;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
@@ -40,9 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,17 +51,22 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
     Toolbar toolbar;
     final String TAG = "Pilih Personil";
     private List<ListItemPilihPersonil> listItemPilihPersonils = new ArrayList<ListItemPilihPersonil>();
+    private List<ListItemPilihPersonil> listTerpilih = new ArrayList<ListItemPilihPersonil>();
     RecyclerView recyclerView;
     pilihPersonilRecyclerAdapter adapter;
     private ProgressDialog PD;
     public ImageButton done_btn;
     StringBuffer stringBuffer = null;
     String[] arrPers = null;
-    String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/persjadwal/insert.php";
+    String reqTglMulai, reqJamMulai, reqTglSelesai, reqJamSelesai, nrpTerpilih;
+    String urlReq;
+    String url      = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/persjadwal/insert.php";
+
     int jumlah;
 
-    Context context;
-    String idJadwal, idjadwaltosave;
+    String idJadwal;
+    TextView search_et;
+    LinearLayout search_wrap;
 
 
     @Override
@@ -74,9 +76,23 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
         toolbar = (Toolbar) findViewById(R.id.selected_bar);
         setSupportActionBar(toolbar);
 
-        Intent getJadwal = getIntent();
-        idJadwal = getJadwal.getStringExtra("idJadwal");
 
+
+
+        search_et           = (EditText) findViewById(R.id.search_box);
+        search_wrap         = (LinearLayout) findViewById(R.id.wrap_search);
+
+        Intent getJadwal    = getIntent();
+        idJadwal            = getJadwal.getStringExtra("idJadwal");
+        reqTglMulai         = getJadwal.getStringExtra("tglMulai");
+        reqJamMulai         = getJadwal.getStringExtra("jamMulai");
+        reqTglSelesai       = getJadwal.getStringExtra("tglSelesai");
+        reqJamSelesai       = getJadwal.getStringExtra("jamSelesai");
+
+
+
+        urlReq   = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/jadwal/pers_tersedia.php?tglMulai="+ reqTglMulai +"&jamMulai="+reqJamMulai+"&jamSelesai="+reqJamSelesai;
+        Log.d("Isigetjadwal", urlReq);
         recyclerView = (RecyclerView) findViewById(R.id.rec_pilih_personil);
 
         final LinearLayoutManager layoutManager= new LinearLayoutManager(this);
@@ -92,6 +108,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
         counter_tv = (TextView) findViewById(R.id.counterTextPersonil);
 
         UpdateList();
+        addTextListener();
 
     }
 
@@ -99,7 +116,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                parser.DATA_PERSONIL, null, new Response.Listener<JSONObject>() {
+                urlReq, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -167,9 +184,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
             if(((CheckBox)view).isChecked()){
                 adapter.personilTerpilih.add(listItemPilihPersonils.get(position));
                 counter = counter+1;
-                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
                 updateCounter(counter);
-
             }else {
                 adapter.personilTerpilih.remove(listItemPilihPersonils.get(position));
                 counter = counter-1;
@@ -189,17 +204,19 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.done_selected_mode){
-            stringBuffer = new StringBuffer();
+            for (int i = 0; i < adapter.personilTerpilih.size(); i++){
+                ListItemPilihPersonil listSelected = new ListItemPilihPersonil();
+                ListItemPilihPersonil listItemPilihPersonil = listItemPilihPersonils.get(i);
+                if (listItemPilihPersonil.isSelected() ){
+                    listSelected.setNrp(listItemPilihPersonil.getNrp());
 
-            for (ListItemPilihPersonil daftar : adapter.personilTerpilih){
-                stringBuffer.append(daftar.getNrp());
-                stringBuffer.append(" ");
-                String selPers = stringBuffer.toString();
-                arrPers = selPers.split("\\s+");
+                    listTerpilih.add(listSelected);
+                }
             }
 
+            save();
             if (adapter.personilTerpilih.size()>0){
-                save();
+
                 new MaterialDialog.Builder(pilih_personil.this)
                         .content("Jadwal Telah diatur")
                         .positiveText("Lihat Daftar")
@@ -213,10 +230,6 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
                             }
                         })
                         .show();
-
-
-
-
             }else {
                 Toast.makeText(getApplicationContext(), "Tidak ada yg terpilih", Toast.LENGTH_LONG).show();
             }
@@ -228,8 +241,8 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
     public void save(){
         PD.show();
-        int i;
-        for(i = 0; i < arrPers.length; i++){
+
+        for(int i = 0; i < listTerpilih.size(); i++){
             final int finalI = i;
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
@@ -248,7 +261,9 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                        params.put("nrp", arrPers[finalI]);
+                        String nrpPers = listTerpilih.get(finalI).getNrp();
+                    Log.d("terpilih "+finalI, listTerpilih.get(finalI).getNrp());
+                        params.put("nrp", nrpPers);
                         params.put("id-jadwal", idJadwal);
                     return params;
                 }
@@ -257,7 +272,55 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
             MyApplication.getInstance().addToReqQueue(postRequest);
         }
         PD.dismiss();
+        Log.d("PanjangPers", String.valueOf(listTerpilih.size()));
 
+    }
+
+    public void addTextListener() {
+        search_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+                query  = query.toString().toLowerCase();
+
+                final List<ListItemPilihPersonil> filterList = new ArrayList<>();
+                for (int i = 0; i < listItemPilihPersonils.size(); i++){
+
+                    final String nama_q     = listItemPilihPersonils.get(i).getNama().toLowerCase();
+                    final String nrp_q      = listItemPilihPersonils.get(i).getNrp().toLowerCase();
+                    final String pangkat_q  = listItemPilihPersonils.get(i).getPangkat().toLowerCase();
+
+                    final String nama     = listItemPilihPersonils.get(i).getNama();
+                    final String nrp      = listItemPilihPersonils.get(i).getNrp();
+                    final String pangkat  = listItemPilihPersonils.get(i).getPangkat();
+
+                    if (nama_q.contains(query) || nrp_q.contains(query) || pangkat_q.contains(query)){
+                        ListItemPilihPersonil persFilter = new ListItemPilihPersonil();
+                        persFilter.setNama(nama);
+                        persFilter.setNrp(nrp);
+                        persFilter.setPangkat(pangkat);
+                        filterList.add(persFilter);
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(pilih_personil.this));
+                adapter = new pilihPersonilRecyclerAdapter(pilih_personil.this, filterList);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 

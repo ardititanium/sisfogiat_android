@@ -1,5 +1,6 @@
 package com.mipro.ard.penajdwalan.tambah;
 
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -62,6 +63,8 @@ public class tambah_agenda extends AppCompatActivity {
     TextView title_bar;
     ImageButton m_done_btn, m_back_btn;
 
+    ProgressDialog PD;
+
     String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/agenda/insert.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,11 @@ public class tambah_agenda extends AppCompatActivity {
         jamMulai_et     = (TextView) findViewById(R.id.jamMulai_agenda_et);
         jamSelesai_et   = (TextView) findViewById(R.id.jamSelesai_agenda_et);
         add_to_list     = (Button) findViewById(R.id.add_agenda_btn);
+
+
+        PD = new ProgressDialog(tambah_agenda.this);
+        PD.setMessage("Sedang Menyimpan...");
+        PD.setCancelable(false);
 
         recyclerView = (RecyclerView) findViewById(R.id.rec_agenda_temp);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
@@ -99,8 +107,16 @@ public class tambah_agenda extends AppCompatActivity {
         m_done_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save();
-                Toast.makeText(getApplicationContext(), "im clicked", Toast.LENGTH_SHORT).show();
+                if(agendaList.size() > 0){
+                    save();
+                    PD.dismiss();
+                }else {
+                    new MaterialDialog.Builder(tambah_agenda.this)
+                            .title("Opss!!")
+                            .content("Silahkan Masukkan Agenda Terlebih dahulu sebelum menyimpan")
+                            .negativeText("OK")
+                            .show();
+                }
             }
         });
 
@@ -125,19 +141,11 @@ public class tambah_agenda extends AppCompatActivity {
         add_to_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(agendaList.size() > 0){
-                    addToList();
-                }else {
-                    new MaterialDialog.Builder(tambah_agenda.this)
-                            .title("Opss!!")
-                            .content("Silahkan Masukkan Agenda Terlebih dahulu sebelum menyimpan")
-                            .negativeText("OK")
-                            .show();
-                }
-
+                addToList();
 
             }
         });
+
 
 
 
@@ -145,7 +153,6 @@ public class tambah_agenda extends AppCompatActivity {
 
     private void addToList() {
         long selisihJam = 0, selisihMenit = 0;
-
         String desk_str, ket_str, mulai_str, selesai_str, durasi_str, mulai_temp, selesai_temp;
         mulai_temp   = String.valueOf(jamMulai_et.getText());
         selesai_temp = String.valueOf(jamSelesai_et.getText());
@@ -248,6 +255,7 @@ public class tambah_agenda extends AppCompatActivity {
     }
 
     public void save(){
+        PD.show();
         int i;
         for (i = 0; i < agendaList.size(); i++) {
             final int finalI = i;
@@ -292,7 +300,6 @@ public class tambah_agenda extends AppCompatActivity {
                     String selesai_fix = agendaList.get(finalI).getJamSelesai();
                     String durasi_fix = agendaList.get(finalI).getDurasi();
 
-
                     params.put("idjadwal", "0031");
                     params.put("desk", desk_fix);
                     params.put("mulai", mulai_fix);
@@ -302,8 +309,6 @@ public class tambah_agenda extends AppCompatActivity {
                     return params;
                 }
             };
-
-
             MyApplication.getInstance().addToReqQueue(postRequest);
         }
     }

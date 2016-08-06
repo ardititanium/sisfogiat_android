@@ -396,6 +396,10 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                             case 0:
                                 Intent intent = new Intent(getApplicationContext(), pilih_personil.class);
                                 intent.putExtra("idJadwal", mId_jadwal);
+                                intent.putExtra("tglMulai", mTglMulai);
+                                intent.putExtra("jamMulai", mJamMulai);
+                                intent.putExtra("tglSelesai", mTglSelesai);
+                                intent.putExtra("jamSelesai", mJamSelesai);
                                 startActivity(intent);
                                 finish();
                                 break;

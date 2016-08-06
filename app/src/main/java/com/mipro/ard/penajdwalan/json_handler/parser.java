@@ -27,7 +27,7 @@ public class parser {
     public static final int PICK_IMAGE_REQUEST= 1;
 
     // PEROSNIL LOADER
-    public static final String DATA_PERSONIL = "http://"+ IP_PUBLIC +"/ditlantas/json/personil/view.php";
+    public static final String DATA_PERSONIL            = "http://"+ IP_PUBLIC +"/ditlantas/json/personil/view.php";
 
 
 

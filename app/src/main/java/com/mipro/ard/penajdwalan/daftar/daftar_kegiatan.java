@@ -55,6 +55,7 @@ public class daftar_kegiatan extends AppCompatActivity {
 
     TextView title_bar, search_et;
     ImageButton m_back_btn, m_search_btn, m_add_btn;
+    boolean status_cari = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,16 +91,16 @@ public class daftar_kegiatan extends AppCompatActivity {
         });
 
 
-        final int[] i = {0};
+
         m_search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i[0] == 0){
+                if (!status_cari){
                     search_wrap.setVisibility(View.VISIBLE);
-                    i[0] = 1;
-                }else if (i[0] == 1){
+                    status_cari = true;
+                }else{
                     search_wrap.setVisibility(View.GONE);
-                    i[0] = 0;
+                    status_cari = false;
                 }
             }
         });

@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.RecyclerHandler.l.kategori.KategoriRecyclerAdapter;
+import com.mipro.ard.penajdwalan.RecyclerHandler.l.kategori.ListItemKategori;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.kegiatan.KegiatanRecyclerAdapter;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.kegiatan.ListItemKegiatan;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.ListItemSatlantas;
@@ -27,6 +33,7 @@ import com.mipro.ard.penajdwalan.json_handler.parser;
 import com.mipro.ard.penajdwalan.tambah.tambah_kegiatan;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +51,9 @@ public class daftar_kegiatan extends AppCompatActivity {
 
     private ProgressDialog PD;
 
-    TextView title_bar;
+    LinearLayout search_wrap;
+
+    TextView title_bar, search_et;
     ImageButton m_back_btn, m_search_btn, m_add_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,10 @@ public class daftar_kegiatan extends AppCompatActivity {
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_search_btn= (ImageButton) findViewById(R.id.search_btn);
         m_add_btn = (ImageButton) findViewById(R.id.add_btn);
+        search_et = (EditText) findViewById(R.id.search_box);
+        search_wrap = (LinearLayout) findViewById(R.id.wrap_search);
+
+        search_wrap.setVisibility(View.GONE);
 
 
         title_bar.setText("DAFTAR KEGIATAN");
@@ -76,6 +89,21 @@ public class daftar_kegiatan extends AppCompatActivity {
             }
         });
 
+
+        final int[] i = {0};
+        m_search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (i[0] == 0){
+                    search_wrap.setVisibility(View.VISIBLE);
+                    i[0] = 1;
+                }else if (i[0] == 1){
+                    search_wrap.setVisibility(View.GONE);
+                    i[0] = 0;
+                }
+            }
+        });
+
         recyclerView = (RecyclerView) findViewById(R.id.rec_kegiatan);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
 
@@ -87,6 +115,7 @@ public class daftar_kegiatan extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
+        addTextListener();
 
         if(parser.AKSES_SHARED_PREF.equals("user")){
             m_add_btn.setVisibility(View.GONE);
@@ -160,5 +189,55 @@ public class daftar_kegiatan extends AppCompatActivity {
         // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(jsonObjReq);
 
+    }
+
+    public void addTextListener() {
+        search_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+                query  = query.toString().toLowerCase();
+
+                final List<ListItemKegiatan> filterList = new ArrayList<>();
+                for (int i = 0; i < listItemListKegiatan.size(); i++){
+
+                    final String namaGiat_q   = listItemListKegiatan.get(i).getNamaKegiatan().toLowerCase();
+                    final String namaKat_q    = listItemListKegiatan.get(i).getNamaKategori().toLowerCase();
+                    final String lokasi_q     = listItemListKegiatan.get(i).getNamaLokasi().toLowerCase();
+
+                    final String namaGiat   = listItemListKegiatan.get(i).getNamaKegiatan();
+                    final String namaKat    = listItemListKegiatan.get(i).getNamaKategori();
+                    final String lokasi     = listItemListKegiatan.get(i).getNamaLokasi();
+                    final String status     = listItemListKegiatan.get(i).getStatus();
+
+
+                    if (namaGiat_q.contains(query) || namaKat_q.contains(query) || lokasi_q.contains(query)){
+                        ListItemKegiatan giatFilter = new ListItemKegiatan();
+                        giatFilter.setNamaKegiatan(namaGiat);
+                        giatFilter.setNamaKategori(namaKat);
+                        giatFilter.setNamaLokasi(lokasi);
+                        giatFilter.setStatus(status);
+                        filterList.add(giatFilter);
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(daftar_kegiatan.this));
+                adapter = new KegiatanRecyclerAdapter(daftar_kegiatan.this, filterList);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }

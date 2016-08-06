@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.RecyclerHandler.l.kegiatan.KegiatanRecyclerAdapter;
+import com.mipro.ard.penajdwalan.RecyclerHandler.l.kegiatan.ListItemKegiatan;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.personil.ListItemPersonil;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.personil.PersonilRecyclerAdapter;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.ListItemSatlantas;
@@ -42,8 +48,10 @@ public class daftar_personil extends AppCompatActivity {
     private PersonilRecyclerAdapter adapter;
     private ProgressDialog PD;
 
-    TextView title_bar;
+    TextView title_bar, search_et;
     ImageButton m_back_btn, m_search_btn, m_add_btn;
+
+    LinearLayout search_wrap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,10 @@ public class daftar_personil extends AppCompatActivity {
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_search_btn= (ImageButton) findViewById(R.id.search_btn);
         m_add_btn = (ImageButton) findViewById(R.id.add_btn);
+        search_et = (EditText) findViewById(R.id.search_box);
+        search_wrap = (LinearLayout) findViewById(R.id.wrap_search);
+
+        search_wrap.setVisibility(View.GONE);
 
 
         title_bar.setText("DAFTAR PERSONIL");
@@ -75,6 +87,20 @@ public class daftar_personil extends AppCompatActivity {
             }
         });
 
+        final int[] i = {0};
+        m_search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (i[0] == 0){
+                    search_wrap.setVisibility(View.VISIBLE);
+                    i[0] = 1;
+                }else if (i[0] == 1){
+                    search_wrap.setVisibility(View.GONE);
+                    i[0] = 0;
+                }
+            }
+        });
+
         if (parser.AKSES_SHARED_PREF.equals("user")){
             m_add_btn.setVisibility(View.GONE);
         }
@@ -90,6 +116,7 @@ public class daftar_personil extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
+        addTextListener();
     }
 
 
@@ -152,6 +179,56 @@ public class daftar_personil extends AppCompatActivity {
         // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(jsonObjReq);
 
+    }
+
+    public void addTextListener() {
+        search_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+                query  = query.toString().toLowerCase();
+
+                final List<ListItemPersonil> filterList = new ArrayList<>();
+                for (int i = 0; i < listItemPersonils.size(); i++){
+
+                    final String nama_q     = listItemPersonils.get(i).getNama().toLowerCase();
+                    final String nrp_q      = listItemPersonils.get(i).getNrp().toLowerCase();
+                    final String satuan_q   = listItemPersonils.get(i).getSatuan().toLowerCase();
+                    final String pangkat_q  = listItemPersonils.get(i).getPangkat().toLowerCase();
+
+                    final String nama     = listItemPersonils.get(i).getNama();
+                    final String nrp      = listItemPersonils.get(i).getNrp();
+                    final String satuan   = listItemPersonils.get(i).getSatuan();
+                    final String pangkat  = listItemPersonils.get(i).getPangkat();
+
+                    if (nama_q.contains(query) || nrp_q.contains(query) || satuan_q.contains(query) || pangkat_q.contains(query)){
+                        ListItemPersonil persFilter = new ListItemPersonil();
+                        persFilter.setNama(nama);
+                        persFilter.setNrp(nrp);
+                        persFilter.setPangkat(pangkat);
+                        persFilter.setSatuan(satuan);
+                        filterList.add(persFilter);
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(daftar_personil.this));
+                adapter = new PersonilRecyclerAdapter(daftar_personil.this, filterList);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 }

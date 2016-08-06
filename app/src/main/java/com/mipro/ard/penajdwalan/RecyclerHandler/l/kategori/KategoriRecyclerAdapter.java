@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,15 @@ import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.edit.edit_kategori;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ard on 7/26/2016.
  */
 public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHolderKategori>{
-    private List<ListItemKategori> listItemListKategori;
+
+    private List<ListItemKategori> listItemListKategori, filterlist;
     private Context context;
     private int focusedItem;
     TextView id_kat_tv, nama_kat_tv;
@@ -114,4 +117,6 @@ public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
                 })
                 .show();
     }
+
+
 }

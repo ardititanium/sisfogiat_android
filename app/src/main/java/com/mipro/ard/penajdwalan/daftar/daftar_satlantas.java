@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.RecyclerHandler.l.personil.ListItemPersonil;
+import com.mipro.ard.penajdwalan.RecyclerHandler.l.personil.PersonilRecyclerAdapter;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.ListItemSatlantas;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.satlantas.SatlantasRecyclerAdapter;
@@ -42,8 +48,10 @@ public class daftar_satlantas extends AppCompatActivity {
 
     private ProgressDialog PD;
 
-    TextView title_bar;
+    TextView title_bar, search_et;
     ImageButton m_back_btn, m_search_btn, m_add_btn;
+
+    LinearLayout search_wrap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,11 @@ public class daftar_satlantas extends AppCompatActivity {
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_search_btn= (ImageButton) findViewById(R.id.search_btn);
         m_add_btn = (ImageButton) findViewById(R.id.add_btn);
+
+        search_et = (EditText) findViewById(R.id.search_box);
+        search_wrap = (LinearLayout) findViewById(R.id.wrap_search);
+
+        search_wrap.setVisibility(View.GONE);
 
 
         if(parser.AKSES_SHARED_PREF.equals("user")){
@@ -79,6 +92,20 @@ public class daftar_satlantas extends AppCompatActivity {
             }
         });
 
+        final int[] i = {0};
+        m_search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (i[0] == 0){
+                    search_wrap.setVisibility(View.VISIBLE);
+                    i[0] = 1;
+                }else if (i[0] == 1){
+                    search_wrap.setVisibility(View.GONE);
+                    i[0] = 0;
+                }
+            }
+        });
+
 
 
         recyclerView = (RecyclerView) findViewById(R.id.rec_satlantas);
@@ -92,6 +119,7 @@ public class daftar_satlantas extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
+        addTextListener();
     }
 
     private void updateList() {
@@ -149,5 +177,53 @@ public class daftar_satlantas extends AppCompatActivity {
         // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(jsonObjReq);
 
+    }
+
+    public void addTextListener() {
+        search_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+                query  = query.toString().toLowerCase();
+
+                final List<ListItemSatlantas> filterList = new ArrayList<>();
+                for (int i = 0; i < listItemListSatlantas.size(); i++){
+
+                    final String id_q       = listItemListSatlantas.get(i).getIc_sat().toLowerCase();
+                    final String nama_q     = listItemListSatlantas.get(i).getNama_sat().toLowerCase();
+
+
+                    final String id         = listItemListSatlantas.get(i).getIc_sat();
+                    final String nama       = listItemListSatlantas.get(i).getNama_sat();
+                    final String alamat     = listItemListSatlantas.get(i).getAlamat_sat();
+
+                    if (id_q.contains(query) || nama_q.contains(query)){
+                        ListItemSatlantas satFilter = new ListItemSatlantas();
+                        satFilter.setIc_sat(id);
+                        satFilter.setNama_sat(nama);
+                        satFilter.setAlamat_sat(alamat);
+
+                        filterList.add(satFilter);
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(daftar_satlantas.this));
+                adapter = new SatlantasRecyclerAdapter(daftar_satlantas.this, filterList);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }

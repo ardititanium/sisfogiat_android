@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ import com.mipro.ard.penajdwalan.json_handler.parser;
 import com.mipro.ard.penajdwalan.tambah.tambah_kategori;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,8 +45,10 @@ public class daftar_kategori extends AppCompatActivity {
     private KategoriRecyclerAdapter adapter;
     private ProgressDialog PD;
 
-    TextView title_bar;
+
+    TextView title_bar, search_et;
     ImageButton m_back_btn, m_search_btn, m_add_btn;
+    LinearLayout search_wrap;
 
 
     @Override
@@ -53,6 +60,10 @@ public class daftar_kategori extends AppCompatActivity {
         m_back_btn = (ImageButton) findViewById(R.id.kembali_btn);
         m_search_btn= (ImageButton) findViewById(R.id.search_btn);
         m_add_btn = (ImageButton) findViewById(R.id.add_btn);
+        search_et = (EditText) findViewById(R.id.search_box);
+        search_wrap = (LinearLayout) findViewById(R.id.wrap_search);
+
+        search_wrap.setVisibility(View.GONE);
 
 
         title_bar.setText("DAFTAR KATEGORI");
@@ -72,6 +83,21 @@ public class daftar_kategori extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent addInt = new Intent(daftar_kategori.this, tambah_kategori.class);
+                startActivity(addInt);
+            }
+        });
+
+        final int[] i = {0};
+        m_search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (i[0] == 0){
+                    search_wrap.setVisibility(View.VISIBLE);
+                    i[0] = 1;
+                }else if (i[0] == 1){
+                    search_wrap.setVisibility(View.GONE);
+                    i[0] = 0;
+                }
             }
         });
 
@@ -86,10 +112,52 @@ public class daftar_kategori extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
+        addTextListener();
 
         if (parser.AKSES_SHARED_PREF.equalsIgnoreCase("user")){
             m_add_btn.setVisibility(View.GONE);
         }
+    }
+
+    public void addTextListener() {
+        search_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int start, int before, int count) {
+                query  = query.toString().toLowerCase();
+
+                final List<ListItemKategori> filterList = new ArrayList<>();
+                for (int i = 0; i < listItemListKategori.size(); i++){
+                    final String namaKat    = listItemListKategori.get(i).getNama().toLowerCase();
+                    final String idKat      = listItemListKategori.get(i).getId().toLowerCase();
+
+                    if (namaKat.contains(query) || idKat.contains(query)){
+                        ListItemKategori katFilter = new ListItemKategori();
+                        String namaCap = WordUtils.capitalize(namaKat);
+                        katFilter.setId(idKat.toUpperCase());
+                        katFilter.setNama(namaCap);
+                        filterList.add(katFilter);
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(daftar_kategori.this));
+                adapter = new KategoriRecyclerAdapter(daftar_kategori.this, filterList);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void updateList() {

@@ -34,13 +34,11 @@
 
     </LinearLayout>
 
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rec_pilih_personil"
-        android:layout_below="@id/wrap_search"
-        >
+        android:layout_below="@id/wrap_search">
 
     </android.support.v7.widget.RecyclerView>
 

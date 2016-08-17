@@ -105,7 +105,6 @@ public class edit_kategori extends AppCompatActivity {
     }
 
     public void insert() {
-
         PD.show();
         mId = et_id.getText().toString();
         mNama = et_nama.getText().toString();
@@ -120,31 +119,7 @@ public class edit_kategori extends AppCompatActivity {
                             if (pesan == true) {
                                 PD.dismiss();
                                 et_nama.setText("");
-                                new MaterialDialog.Builder(edit_kategori.this)
-                                        .content("Perubahan telah disimpan")
-                                        .positiveText("Lihat Daftar")
-                                        .backgroundColorRes(R.color.success)
-                                        .positiveColorRes(R.color.mdtp_white)
-                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                Intent backList = new Intent(edit_kategori.this, daftar_kategori.class);
-                                                startActivity(backList);
-                                            }
-                                        })
-                                        .show();
-
-//                                new AlertDialog.Builder(edit_kategori.this)
-//                                        .setTitle("Pesan")
-//                                        .setMessage("Perubahan Berhasil Disimpan")
-//                                        .backgroundColorRes(R.color.material_blue_grey_800)
-//                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                Intent backList = new Intent(edit_kategori.this, daftar_kategori.class);
-//                                                startActivity(backList);
-//                                            }
-//                                        }).show();
+                                savedSuccess();
 
                             } else if (pesan == false) {
                                 Toast.makeText(getApplicationContext(),
@@ -173,8 +148,25 @@ public class edit_kategori extends AppCompatActivity {
             }
         };
 
-        // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(postRequest);
     }
+
+    public void savedSuccess(){
+        new MaterialDialog.Builder(edit_kategori.this)
+                .content("Perubahan telah disimpan")
+                .positiveText("Lihat Daftar")
+                .backgroundColorRes(R.color.success)
+                .positiveColorRes(R.color.mdtp_white)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent backList = new Intent(edit_kategori.this, daftar_kategori.class);
+                        startActivity(backList);
+                    }
+                })
+                .show();
+    }
+
+
 }
 

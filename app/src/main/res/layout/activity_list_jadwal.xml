@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_holder_tgl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/click_selector">
+
+    <include
+        android:id="@+id/bar_list_jadwal"
+        layout="@layout/bar_filter_jadwal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar_list_jadwal"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/nav_rec"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/con_rec"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="8" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

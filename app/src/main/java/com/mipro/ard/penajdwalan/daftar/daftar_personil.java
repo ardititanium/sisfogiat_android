@@ -74,9 +74,8 @@ public class daftar_personil extends AppCompatActivity {
         m_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back_home = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(back_home);
-                finish();
+                Intent backHome = new Intent(daftar_personil.this, MainActivity.class);
+                startActivity(backHome);
             }
         });
 

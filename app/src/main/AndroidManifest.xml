@@ -10,7 +10,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -32,7 +32,6 @@
         <activity android:name=".tambah.tambah_personil" />
         <activity android:name=".tambah.tambah_kegiatan" />
         <activity android:name=".tambah.tambah_agenda" />
-        <activity android:name=".tambah.tambah_surat_perintah" />
         <activity android:name=".tambah.tambah_laporan" />
         <activity android:name=".daftar.daftar_personil" />
         <activity android:name=".daftar.daftar_satlantas" />
@@ -60,7 +59,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".jadwal.detail_jadwal" />
-        <activity android:name=".tambah.tambah_str"></activity>
+        <activity android:name=".tambah.tambah_str" />
+        <activity android:name=".jadwal.ListJadwal" />
+        <activity android:name=".jadwal.personil_terlibat">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mipro.ard.penajdwalan.jadwal.detail_jadwal" />
+        </activity>
+        <activity android:name=".jadwal.lihat_str" />
+        <activity android:name=".jadwal.upload_validtor" />
+        <activity android:name=".jadwal.review_giat" />
+        <activity android:name=".daftar.daftar_giat_personil" />
+        <activity android:name=".daftar.daftar_laporan"></activity>
     </application>
 
 </manifest>

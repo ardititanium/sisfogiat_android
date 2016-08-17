@@ -18,6 +18,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
@@ -164,7 +165,6 @@ public class edit_satlantas extends AppCompatActivity {
             }
         };
 
-        // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(postRequest);
     }
 
@@ -192,4 +192,10 @@ public class edit_satlantas extends AppCompatActivity {
         });
         MyApplication.getInstance().addToReqQueue(request);
     }
+
+
+
 }
+
+
+

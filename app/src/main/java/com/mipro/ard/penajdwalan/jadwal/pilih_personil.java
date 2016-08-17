@@ -33,7 +33,10 @@ import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.ListItemPilihPersonil;
 import com.mipro.ard.penajdwalan.jadwal.RecyclerJadwal.pilihPersonil.pilihPersonilRecyclerAdapter;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
+import com.mipro.ard.penajdwalan.json_handler.MyCommand;
 import com.mipro.ard.penajdwalan.json_handler.parser;
+import com.mipro.ard.penajdwalan.tambah.tambah_agenda;
+import com.mipro.ard.penajdwalan.tambah.tambah_str;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +49,7 @@ import java.util.Map;
 
 public class pilih_personil extends AppCompatActivity implements View.OnLongClickListener{
     public boolean isActionMode = false;
-    TextView counter_tv, hideIdJadwal_tv;
+    TextView counter_tv;
     int counter = 0;
     Toolbar toolbar;
     final String TAG = "Pilih Personil";
@@ -55,9 +58,7 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
     RecyclerView recyclerView;
     pilihPersonilRecyclerAdapter adapter;
     private ProgressDialog PD;
-    public ImageButton done_btn;
-    StringBuffer stringBuffer = null;
-    String[] arrPers = null;
+
     String reqTglMulai, reqJamMulai, reqTglSelesai, reqJamSelesai, nrpTerpilih;
     String urlReq;
     String url      = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/persjadwal/insert.php";
@@ -113,8 +114,6 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
     }
 
     private void UpdateList(){
-
-
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 urlReq, null, new Response.Listener<JSONObject>() {
 
@@ -209,27 +208,12 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
                 ListItemPilihPersonil listItemPilihPersonil = listItemPilihPersonils.get(i);
                 if (listItemPilihPersonil.isSelected() ){
                     listSelected.setNrp(listItemPilihPersonil.getNrp());
-
                     listTerpilih.add(listSelected);
                 }
             }
 
-            save();
             if (adapter.personilTerpilih.size()>0){
-
-                new MaterialDialog.Builder(pilih_personil.this)
-                        .content("Jadwal Telah diatur")
-                        .positiveText("Lihat Daftar")
-                        .backgroundColorRes(R.color.success)
-                        .positiveColorRes(R.color.mdtp_white)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Intent backList = new Intent(pilih_personil.this, daftar_kegiatan.class);
-                                startActivity(backList);
-                            }
-                        })
-                        .show();
+                save();
             }else {
                 Toast.makeText(getApplicationContext(), "Tidak ada yg terpilih", Toast.LENGTH_LONG).show();
             }
@@ -241,14 +225,28 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
     public void save(){
         PD.show();
+        
+        MyCommand myCommand = new MyCommand();
 
-        for(int i = 0; i < listTerpilih.size(); i++){
-            final int finalI = i;
+        for(final ListItemPilihPersonil daftar : adapter.personilTerpilih){
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            try {
+                                JSONObject jPesan = new JSONObject(response);
+                                boolean pesan = jPesan.names().get(0).equals("success");
+                                if (pesan){
+                                    PD.dismiss();
+                                }else{
+                                    Toast.makeText(getApplicationContext(),
+                                            "Terjadi Kesalahan",
+                                            Toast.LENGTH_SHORT).show();
+                                }
 
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -261,18 +259,18 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                        String nrpPers = listTerpilih.get(finalI).getNrp();
-                    Log.d("terpilih "+finalI, listTerpilih.get(finalI).getNrp());
-                        params.put("nrp", nrpPers);
-                        params.put("id-jadwal", idJadwal);
+                    params.put("nrp", daftar.getNrp());
+                    params.put("id-jadwal", idJadwal);
                     return params;
                 }
             };
 
-            MyApplication.getInstance().addToReqQueue(postRequest);
+            myCommand.add(postRequest);
         }
+
+        myCommand.execute();
         PD.dismiss();
-        Log.d("PanjangPers", String.valueOf(listTerpilih.size()));
+        savedSucced();
 
     }
 
@@ -321,6 +319,27 @@ public class pilih_personil extends AppCompatActivity implements View.OnLongClic
 
             }
         });
+    }
+
+
+    public void savedSucced(){
+        new MaterialDialog.Builder(pilih_personil.this)
+                .title("Personil Terpilih Telah disimpan")
+                .positiveText("Lanjut")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent intent = new Intent(getApplicationContext(), tambah_agenda.class);
+                        intent.putExtra("idJadwal", idJadwal);
+                        intent.putExtra("tglMulai", reqTglMulai);
+                        intent.putExtra("jamMulai", reqJamMulai);
+                        intent.putExtra("tglSelesai", reqTglSelesai);
+                        intent.putExtra("jamSelesai", reqJamSelesai);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .show();
     }
 
 

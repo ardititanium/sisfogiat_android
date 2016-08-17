@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -69,8 +72,7 @@ public class edit_kegiatan extends AppCompatActivity {
         m_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back_home = new Intent(getApplicationContext(), daftar_kegiatan.class);
-                startActivity(back_home);
+                showAlert();
             }
         });
 
@@ -345,4 +347,17 @@ public class edit_kegiatan extends AppCompatActivity {
         return convert;
     }
 
+    private void showAlert() {
+        new MaterialDialog.Builder(edit_kegiatan.this)
+                .title("Anda Yakin?")
+                .content("Semua perubahan, akan terhapus")
+                .negativeText("TIDAK")
+                .positiveText("YA")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                }).show();
+    }
 }

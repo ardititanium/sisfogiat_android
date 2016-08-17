@@ -67,7 +67,7 @@
 
     <string-array name="list_bulan">
         <item> Januari </item>
-        <item> Februari </item>>
+        <item> Februari </item>
         <item> Maret </item>
         <item> April </item>
         <item> Mei </item>
@@ -78,12 +78,12 @@
         <item> Oktober </item>
         <item> November </item>
         <item> Desember </item>
-        <item> September </item>
     </string-array>
 
     <string-array name="menu_jadwal">
         <item> Pilih Personil Terlibat </item>
         <item> Tambahkan Surat Perintah </item>
+        <item> Tambahkan Agenda </item>
     </string-array>
     <string name="title_activity_login">Sign in</string>
 

@@ -1,17 +1,14 @@
 package com.mipro.ard.penajdwalan.jadwal;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -27,7 +24,8 @@ import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
-import com.mipro.ard.penajdwalan.tambah.tambah_surat_perintah;
+import com.mipro.ard.penajdwalan.tambah.tambah_agenda;
+import com.mipro.ard.penajdwalan.tambah.tambah_str;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONException;
@@ -39,6 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class atur_jadwal extends AppCompatActivity implements View.OnClickListener{
     String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/jadwal/insert.php";
@@ -108,16 +107,16 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
                 setJamMulai();
             }else if (v == jam_selesai_et){
                 setJamSelesai();
-
             }else if(v == done_btn){
                 insert();
-
-
+            }else if(v == back_btn){
+                showAlert();
             }
     }
 
     public void setTglMulai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         tahun = c.get(Calendar.YEAR);
         bulan = c.get(Calendar.MONTH);
         tgl = c.get(Calendar.DAY_OF_MONTH);
@@ -146,7 +145,8 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setTglSelesai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         tahun = c.get(Calendar.YEAR);
         bulan = c.get(Calendar.MONTH);
         tgl = c.get(Calendar.DAY_OF_MONTH);
@@ -177,7 +177,8 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
 
 
     public void setJamMulai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         jam = c.get(Calendar.HOUR_OF_DAY);
         menit = c.get(Calendar.MINUTE);
 
@@ -202,7 +203,8 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setJamSelesai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         jam = c.get(Calendar.HOUR_OF_DAY);
         menit = c.get(Calendar.MINUTE);
 
@@ -229,6 +231,7 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
 
     public void cekTanggal(){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Makassar"));
         String mulaiString = tgl_mulai_et.getText().toString();
         String selesaiString = tgl_selesai_et.getText().toString();
 
@@ -380,40 +383,41 @@ public class atur_jadwal extends AppCompatActivity implements View.OnClickListen
     public void savedSucced(){
         new MaterialDialog.Builder(atur_jadwal.this)
                 .title("Pengaturan Berhasil")
-                .items(R.array.menu_jadwal)
-                .negativeText("Lewati")
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                .positiveText("Lanjut")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), tambah_str.class);
+                        intent.putExtra("idJadwal", mId_jadwal);
+                        intent.putExtra("tglMulai", mTglMulai);
+                        intent.putExtra("jamMulai", mJamMulai);
+                        intent.putExtra("tglSelesai", mTglSelesai);
+                        intent.putExtra("jamSelesai", mJamSelesai);
                         startActivity(intent);
-                    }
-                })
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        switch(which){
-                            case 0:
-                                Intent intent = new Intent(getApplicationContext(), pilih_personil.class);
-                                intent.putExtra("idJadwal", mId_jadwal);
-                                intent.putExtra("tglMulai", mTglMulai);
-                                intent.putExtra("jamMulai", mJamMulai);
-                                intent.putExtra("tglSelesai", mTglSelesai);
-                                intent.putExtra("jamSelesai", mJamSelesai);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            case 1:
-                                Intent intSurat = new Intent(getApplicationContext(), tambah_surat_perintah.class);
-                                intSurat.putExtra("idJadwal", mId_jadwal);
-                                startActivity(intSurat);
-                                finish();
-                        }
+                        finish();
                     }
                 })
                 .show();
     }
+
+    private void showAlert() {
+        new MaterialDialog.Builder(atur_jadwal.this)
+                .title("Anda Yakin?")
+                .content("Semua perubahan, akan terhapus")
+                .negativeText("TIDAK")
+                .positiveText("YA")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                }).show();
+    }
 }
+
+
+
+
 
 
 

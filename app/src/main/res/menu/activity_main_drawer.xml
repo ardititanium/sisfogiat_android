@@ -4,49 +4,29 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_d_satlantas"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/prison"
             android:title="Daftar Satlantas" />
         <item
             android:id="@+id/nav_d_personil"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Daftar Personi" />
+            android:icon="@drawable/polisi"
+            android:title="Daftar Personil" />
         <item
             android:id="@+id/nav_d_kategori"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/police_badge"
             android:title="Daftar Kategori" />
         <item
             android:id="@+id/nav_d_kegiatan"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/calendar_text"
             android:title="Daftar Kegiatan" />
         <item
-            android:id="@+id/nav_d_agenda"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Daftar Agenda" />
-        <item
-            android:id="@+id/nav_d_surat"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Daftar Surat Perintah" />
-        <item
             android:id="@+id/nav_d_laporan"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/file_document"
             android:title="Daftar Laporan" />
+        <item
+            android:id="@+id/nav_k_jadwal"
+            android:icon="@drawable/calendar_clock"
+            android:title="Daftar Jadwal" />
     </group>
 
-    <item android:title="Kelola Jadwal">
-        <menu>
-            <item
-                android:id="@+id/nav_k_atur"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Atur Jadwal" />
-            <item
-                android:id="@+id/nav_k_jadwal"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Daftar Jadwal" />
-            <item
-                android:id="@+id/nav_k_pers"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Personil Terlibat" />
-        </menu>
-    </item>
 
 </menu>

@@ -2,6 +2,7 @@ package com.mipro.ard.penajdwalan.tambah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,6 +22,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.MainActivity;
 
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
+import com.mipro.ard.penajdwalan.detail.detail_personil;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
@@ -101,13 +106,11 @@ public class tambah_kategori extends AppCompatActivity {
                         try {
                             JSONObject jPesan = new JSONObject(response);
                             boolean pesan = jPesan.names().get(1).equals("success");
-                            if (pesan == true){
+                            if (pesan){
                                 PD.dismiss();
                                 et_nama.setText("");
-                                Toast.makeText(getApplicationContext(),
-                                        "Data Kategori Berhasil di Simpan",
-                                        Toast.LENGTH_SHORT).show();
-                            }else if(pesan == false){
+                                SavedSucces();
+                            }else if(!pesan){
                                 Toast.makeText(getApplicationContext(),
                                         "Terjadi Kesalahan",
                                         Toast.LENGTH_SHORT).show();
@@ -134,7 +137,6 @@ public class tambah_kategori extends AppCompatActivity {
             }
         };
 
-        // Adding request to request queue
         MyApplication.getInstance().addToReqQueue(postRequest);
     }
 
@@ -161,5 +163,21 @@ public class tambah_kategori extends AppCompatActivity {
             }
         });
         MyApplication.getInstance().addToReqQueue(request);
+    }
+
+    public void SavedSucces(){
+        new MaterialDialog.Builder(tambah_kategori.this)
+                .content("Personil Berhasil di Tambahkan")
+                .positiveText("Lihat Daftar")
+                .negativeText("Tambah Baru")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent intent = new Intent(tambah_kategori.this, daftar_kategori.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .show();
     }
 }

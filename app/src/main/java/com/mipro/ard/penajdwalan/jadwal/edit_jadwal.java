@@ -25,7 +25,7 @@ import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
-import com.mipro.ard.penajdwalan.tambah.tambah_surat_perintah;
+import com.mipro.ard.penajdwalan.tambah.tambah_str;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONException;
@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class edit_jadwal extends AppCompatActivity implements View.OnClickListener{
     String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/jadwal/edit.php";
@@ -100,6 +101,7 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
         tgl_selesai_et.setOnClickListener(this);
         jam_selesai_et.setOnClickListener(this);
         done_btn.setOnClickListener(this);
+        back_btn.setOnClickListener(this);
 
         PD = new ProgressDialog(this);
         PD.setMessage("Loading.....");
@@ -131,13 +133,28 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
 
             }else if(v == done_btn){
                 insert();
-
-
+            }else if(v == back_btn){
+                showAlert();
             }
     }
 
+    private void showAlert() {
+        new MaterialDialog.Builder(edit_jadwal.this)
+                .title("Anda Yakin?")
+                .content("Semua perubahan, akan terhapus")
+                .negativeText("TIDAK")
+                .positiveText("YA")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                }).show();
+    }
+
     public void setTglMulai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         tahun = c.get(Calendar.YEAR);
         bulan = c.get(Calendar.MONTH);
         tgl = c.get(Calendar.DAY_OF_MONTH);
@@ -166,7 +183,8 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setTglSelesai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         tahun = c.get(Calendar.YEAR);
         bulan = c.get(Calendar.MONTH);
         tgl = c.get(Calendar.DAY_OF_MONTH);
@@ -197,7 +215,8 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
 
 
     public void setJamMulai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         jam = c.get(Calendar.HOUR_OF_DAY);
         menit = c.get(Calendar.MINUTE);
 
@@ -222,7 +241,8 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setJamSelesai(){
-        final Calendar c = Calendar.getInstance();
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Makassar");
+        final Calendar c = Calendar.getInstance(timeZone);
         jam = c.get(Calendar.HOUR_OF_DAY);
         menit = c.get(Calendar.MINUTE);
 
@@ -249,6 +269,7 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
 
     public void cekTanggal(){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Makassar"));
         String mulaiString = tgl_mulai_et.getText().toString();
         String selesaiString = tgl_selesai_et.getText().toString();
 
@@ -333,7 +354,7 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
                     public void onResponse(String response) {
                         try {
                             JSONObject jPesan = new JSONObject(response);
-                            boolean pesan = jPesan.names().get(1).equals("success");
+                            boolean pesan = jPesan.names().get(0).equals("success");
                             if (pesan == true){
                                 PD.dismiss();
 
@@ -401,8 +422,7 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
 
     public void savedSucced(){
         new MaterialDialog.Builder(edit_jadwal.this)
-                .title("Pengaturan Berhasil")
-                .items(R.array.menu_jadwal)
+                .title("Edit Berhasil")
                 .negativeText("Lewati")
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -422,7 +442,7 @@ public class edit_jadwal extends AppCompatActivity implements View.OnClickListen
                                 finish();
                                 break;
                             case 1:
-                                Intent intSurat = new Intent(getApplicationContext(), tambah_surat_perintah.class);
+                                Intent intSurat = new Intent(getApplicationContext(), tambah_str.class);
                                 intSurat.putExtra("idJadwal", mId_jadwal);
                                 startActivity(intSurat);
                                 finish();

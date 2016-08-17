@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mipro.ard.penajdwalan.jadwal.upload_validtor">
+
+    <include
+        android:id="@+id/barCoba"
+        layout="@layout/bar_test" />
+
+    <LinearLayout
+        android:layout_below="@id/barCoba"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:text="SCAN SURAT"
+                android:id="@+id/btn_cam_up_sp"
+                android:background="@drawable/rounded_red"
+                android:layout_marginBottom="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:text="PILIH DARI GALERY"
+                android:id="@+id/btn_galery_up_sp"
+                android:background="@drawable/rounded_red"
+                android:layout_marginBottom="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_marginBottom="16dp" >
+
+            <LinearLayout
+                android:id="@+id/linearMain"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

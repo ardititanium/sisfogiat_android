@@ -89,7 +89,7 @@ public class daftar_jadwal extends AppCompatActivity {
         PD.setCancelable(false);
 
         updateList();
-        Log.d("URLJSON", url);
+
     }
 
     public String namaBulan(String bulan){

@@ -3,6 +3,7 @@ package com.mipro.ard.penajdwalan.RecyclerHandler.l.kategori;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,13 +12,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.mipro.ard.penajdwalan.R;
+import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
+import com.mipro.ard.penajdwalan.daftar.daftar_personil;
 import com.mipro.ard.penajdwalan.edit.edit_kategori;
+import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ard on 7/26/2016.
@@ -94,12 +108,7 @@ public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (which == 0){
-                            new MaterialDialog.Builder(context)
-                                    .title(nama_kat_tv.getText().toString())
-                                    .content("Yakin akan menghapus " + nama_kat_tv.getText().toString())
-                                    .positiveText("Hapus")
-                                    .negativeText("Batal")
-                                    .show();
+                            dialogHapus();
                         }else {
                             String id_kat_str = id_kat_tv.getText().toString();
                             String nama_kat_str =  nama_kat_tv.getText().toString();
@@ -113,6 +122,76 @@ public class KategoriRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHol
 
                         }
 
+                    }
+                })
+                .show();
+    }
+
+    public void hapus(){
+        String urlHapus = "http://"+parser.IP_PUBLIC+"/ditlantas/json/kategori/hapus.php";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, urlHapus,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jPesan = new JSONObject(response);
+                            boolean pesan = jPesan.names().get(0).equals("success");
+                            if (pesan){
+                                hapusBerhasil();
+                            }else if(!pesan){
+                                Toast.makeText(context,
+                                        "Terjadi Kesalahan",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,
+                        "Terjadi Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                String id_kat_str = id_kat_tv.getText().toString();
+                params.put("id", id_kat_str);
+                return params;
+            }
+        };
+
+        MyApplication.getInstance().addToReqQueue(postRequest);
+    }
+
+    private void hapusBerhasil() {
+        new MaterialDialog.Builder(context)
+                .content("Hapus Berhasil")
+                .positiveText("Kembali Ke Daftar")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent backDaftar = new Intent(context, daftar_kategori.class);
+                        context.startActivity(backDaftar);
+                    }
+                })
+                .show();
+    }
+
+    public void dialogHapus(){
+        new MaterialDialog.Builder(context)
+                .content("Anda Yakin?")
+                .positiveText("YA")
+                .negativeText("BATAL")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        hapus();
+                        Intent intentYa = new Intent(context, daftar_kategori.class);
+                        context.startActivity(intentYa);
                     }
                 })
                 .show();

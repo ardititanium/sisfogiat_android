@@ -37,7 +37,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:text="SCAN SURAT"
+                android:text="PILIH DARI GALERY"
                 android:id="@+id/btn_galery_up_sp"
                 android:background="@drawable/rounded_red"
                 android:layout_marginBottom="0dp"
@@ -46,16 +46,9 @@
 
         </LinearLayout>
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/progressBar" />
-
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="match_parent"
             android:id="@+id/scrollView"
             android:layout_marginBottom="16dp" >
 
@@ -67,24 +60,6 @@
 
             </LinearLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/rounded_full"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="15dp" >
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nama_sp_up"
-                android:background="@android:color/transparent"
-                android:hint="Nama Surat Perintah"
-                android:textAlignment="center"
-                android:inputType="textNoSuggestions"/>
-        </LinearLayout>
 
     </LinearLayout>
 

@@ -77,6 +77,7 @@ public class detail_kegiatan extends AppCompatActivity{
 
         if (status_in.equals("Selesai")) {
             status_tv.setBackgroundResource(R.drawable.rounded_square);
+            hapus_btn.setVisibility(View.GONE);
             btn_atur_jadwal.setVisibility(View.GONE);
             btn_lihat_jadwal.setVisibility(View.VISIBLE);
             btn_lihat_jadwal.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +86,7 @@ public class detail_kegiatan extends AppCompatActivity{
                     Intent lihatJadwal = new Intent(detail_kegiatan.this, detail_jadwal.class);
                     lihatJadwal.putExtra("idGiat", id_giat);
                     startActivity(lihatJadwal);
+
                 }
             });
         }else {

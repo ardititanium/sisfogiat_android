@@ -63,7 +63,7 @@
             android:id="@+id/fab_a_satlantas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@drawable/prison"
             fab:fab_label="Satlantas"
             fab:fab_size="mini" />
 
@@ -72,43 +72,22 @@
             android:id="@+id/fab_a_personil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@drawable/account"
             fab:fab_label="Personil"
             fab:fab_size="mini" />
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_a_kategori"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@drawable/police_badge"
             fab:fab_label="Kategori"
             fab:fab_size="mini" />
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_a_kegiatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@drawable/calendar_text"
             fab:fab_label="Kegiatan"
-            fab:fab_size="mini" />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_a_agenda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
-            fab:fab_label="Agenda"
-            fab:fab_size="mini" />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_a_surat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
-            fab:fab_label="Surat Perintah"
-            fab:fab_size="mini" />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_a_laporan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"
-            fab:fab_label="Laporan"
             fab:fab_size="mini" />
 
 

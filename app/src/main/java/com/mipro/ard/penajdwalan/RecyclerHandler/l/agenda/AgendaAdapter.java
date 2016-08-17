@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class AgendaAdapter extends RecyclerView.Adapter<daftarAgendaViewHolder> {
     Context context;
-    List<Agenda> daftarAgendaList;
+    public List<Agenda> daftarAgendaList;
     tambah_agenda pilihanDialog;
 
     public AgendaAdapter(List<Agenda> daftarAgendaList, Context context) {

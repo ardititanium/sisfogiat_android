@@ -36,6 +36,27 @@
             android:background="@android:color/transparent"
             android:layout_alignParentRight="true"
             />
+
+        <ImageButton
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
+            android:id="@+id/btn_validation"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/edit_btn_d_jadwal"
+            android:layout_toStartOf="@+id/edit_btn_d_jadwal"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/stat_sys_upload" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Medium Text"
+            android:id="@+id/status_detail_jadwal"
+
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/back_btn_d_jadwal"
+            android:layout_toEndOf="@+id/back_btn_d_jadwal" />
     </RelativeLayout>
 
     <LinearLayout
@@ -55,7 +76,6 @@
             android:text="Small Text"
             android:id="@+id/det_kat_d_jadwal"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/rounded_square_d"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"

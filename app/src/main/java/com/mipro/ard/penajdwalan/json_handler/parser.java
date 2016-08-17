@@ -5,7 +5,7 @@ package com.mipro.ard.penajdwalan.json_handler;
  */
 public class parser {
     //IP DEFAULT
-    public static final String IP_PUBLIC = "192.168.1.2";
+    public static final String IP_PUBLIC = "192.168.1.8";
 
     // SATALANTAS LOADER
     public static final String DATA_SAT_SPINNER = "http://"+ IP_PUBLIC +"/ditlantas/json/satlantas/view_spinner.php";
@@ -47,6 +47,7 @@ public class parser {
     public static final String NRP_SHARED_PREF      = "nrp";
     public static final String NAMA_SHARED_PREF     = "nama";
     public static String AKSES_SHARED_PREF;
+    public static String NRP_ON_GIAT;
     public static final String ID_SHARED_PREF       = "id";
     public static final String SATUAN_SHARED_PREF   = "satuan";
     public static final String PASS_SHARED_PREF     = "pass";

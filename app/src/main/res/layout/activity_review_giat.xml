@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".jadwal.review_giat">
+
+    <include
+        android:id="@+id/bar_valid"
+        layout="@layout/bar_validator" />
+
+    <ScrollView
+        android:layout_below="@id/bar_valid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/validator_image"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

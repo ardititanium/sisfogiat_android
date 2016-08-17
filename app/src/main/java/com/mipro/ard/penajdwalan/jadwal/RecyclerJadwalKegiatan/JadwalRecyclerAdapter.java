@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.detail.detail_kegiatan;
+import com.mipro.ard.penajdwalan.jadwal.ListJadwal;
 import com.mipro.ard.penajdwalan.jadwal.detail_jadwal;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class JadwalRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHolde
     private List<ListItemJadwal> listItemJadwals;
     private Context context;
     private int focusedItem;
+    ListJadwal ctx;
 
     public JadwalRecyclerAdapter(Context context, List<ListItemJadwal> listItemJadwals) {
         this.listItemJadwals = listItemJadwals;
@@ -42,6 +44,7 @@ public class JadwalRecyclerAdapter extends RecyclerView.Adapter<ListRowViewHolde
                 String idJadwal = idJadwal_tv.getText().toString();
                 String idKegiatan = idGiat_tv.getText().toString();
                 Intent intent = new Intent(context, detail_jadwal.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("idJadwal", idJadwal);
                 intent.putExtra("idGiat", idKegiatan);
                 context.startActivity(intent);

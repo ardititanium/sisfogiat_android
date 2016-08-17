@@ -43,7 +43,7 @@
         android:id = "@+id/search_btn"
         android:layout_width = "?android:attr/actionBarSize"
         android:layout_height = "?android:attr/actionBarSize"
-        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:src="@drawable/search_ic"
 
         android:background="@android:color/transparent"
         android:layout_alignParentRight="true" />

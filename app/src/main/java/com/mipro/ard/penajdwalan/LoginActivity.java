@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Intent login = new Intent(LoginActivity.this, MainActivity.class);
                             login.putExtra("nrp", get_nrp);
                             startActivity(login);
+                            finish();
                         }else {
                             new MaterialDialog.Builder(LoginActivity.this)
                                     .title("Terjadi Kesalahan")

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -32,7 +34,10 @@ import com.mipro.ard.penajdwalan.MainActivity;
 import com.mipro.ard.penajdwalan.R;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.agenda.Agenda;
 import com.mipro.ard.penajdwalan.RecyclerHandler.l.agenda.AgendaAdapter;
+import com.mipro.ard.penajdwalan.jadwal.ListJadwal;
+import com.mipro.ard.penajdwalan.jadwal.detail_jadwal;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
+import com.mipro.ard.penajdwalan.json_handler.MyCommand;
 import com.mipro.ard.penajdwalan.json_handler.parser;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -64,6 +69,7 @@ public class tambah_agenda extends AppCompatActivity {
     ImageButton m_done_btn, m_back_btn;
 
     ProgressDialog PD;
+    String idJadwal, reqTglMulai, reqJamMulai, reqTglSelesai, reqJamSelesai;
 
     String url = "http://"+ parser.IP_PUBLIC +"/ditlantas/json/agenda/insert.php";
     @Override
@@ -78,12 +84,23 @@ public class tambah_agenda extends AppCompatActivity {
         add_to_list     = (Button) findViewById(R.id.add_agenda_btn);
 
 
+
+
+        Intent getJadwal    = getIntent();
+        idJadwal            = getJadwal.getStringExtra("idJadwal");
+        reqTglMulai         = getJadwal.getStringExtra("tglMulai");
+        reqJamMulai         = getJadwal.getStringExtra("jamMulai");
+        reqTglSelesai       = getJadwal.getStringExtra("tglSelesai");
+        reqJamSelesai       = getJadwal.getStringExtra("jamSelesai");
+
+
         PD = new ProgressDialog(tambah_agenda.this);
         PD.setMessage("Sedang Menyimpan...");
         PD.setCancelable(false);
 
         recyclerView = (RecyclerView) findViewById(R.id.rec_agenda_temp);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -110,6 +127,7 @@ public class tambah_agenda extends AppCompatActivity {
                 if(agendaList.size() > 0){
                     save();
                     PD.dismiss();
+                    savedSucced();
                 }else {
                     new MaterialDialog.Builder(tambah_agenda.this)
                             .title("Opss!!")
@@ -134,9 +152,6 @@ public class tambah_agenda extends AppCompatActivity {
                 setJamSelesai();
             }
         });
-
-
-
 
         add_to_list.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,11 +269,14 @@ public class tambah_agenda extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+
     public void save(){
         PD.show();
+
+        MyCommand myCommand = new MyCommand();
         int i;
-        for (i = 0; i < agendaList.size(); i++) {
-            final int finalI = i;
+        for (final Agenda daftar : adapter.daftarAgendaList) {
+
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
@@ -266,12 +284,11 @@ public class tambah_agenda extends AppCompatActivity {
                             try {
                                 JSONObject jPesan = new JSONObject(response);
                                 boolean pesan = jPesan.names().get(0).equals("success");
-                                if (pesan == true) {
-
+                                if (pesan) {
                                     Toast.makeText(getApplicationContext(),
-                                            "Data Kategori Berhasil di Simpan",
+                                            "Berhasil Menyimpan Agenda",
                                             Toast.LENGTH_SHORT).show();
-                                } else if (pesan == false) {
+                                } else{
                                     Toast.makeText(getApplicationContext(),
                                             "Terjadi Kesalahan",
                                             Toast.LENGTH_SHORT).show();
@@ -294,13 +311,13 @@ public class tambah_agenda extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    String desk_fix = agendaList.get(finalI).getDeskripsi();
-                    String ket_fix = agendaList.get(finalI).getKeterangan();
-                    String mulai_fix = agendaList.get(finalI).getJamMulai();
-                    String selesai_fix = agendaList.get(finalI).getJamSelesai();
-                    String durasi_fix = agendaList.get(finalI).getDurasi();
+                    String desk_fix = daftar.getDeskripsi();
+                    String ket_fix = daftar.getKeterangan();
+                    String mulai_fix = daftar.getJamMulai();
+                    String selesai_fix = daftar.getJamSelesai();
+                    String durasi_fix = daftar.getDurasi();
 
-                    params.put("idjadwal", "0031");
+                    params.put("idjadwal", idJadwal);
                     params.put("desk", desk_fix);
                     params.put("mulai", mulai_fix);
                     params.put("selesai", selesai_fix);
@@ -309,26 +326,33 @@ public class tambah_agenda extends AppCompatActivity {
                     return params;
                 }
             };
-            MyApplication.getInstance().addToReqQueue(postRequest);
+            myCommand.add(postRequest);
         }
+        myCommand.execute();
     }
 
-    public void showDialog(Context context){
-        new MaterialDialog.Builder(context)
-                .title("Pilih...")
-                .items(R.array.dialog_menu1)
-                .itemsCallback(new MaterialDialog.ListCallback() {
+
+    public void savedSucced(){
+        new MaterialDialog.Builder(tambah_agenda.this)
+                .title("Personil Terpilih Telah disimpan")
+                .positiveText("Lanjut")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        switch (which){
-                            case 0:
-                                break;
-                            case 1:
-                                desk_et.setText(agendaList.get(0).getDeskripsi());
-                                break;
-                        }
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                        Intent intent = new Intent(getApplicationContext(), detail_jadwal.class);
+//                        intent.putExtra("idJadwal", idJadwal);
+//                        intent.putExtra("tglMulai", reqTglMulai);
+//                        intent.putExtra("jamMulai", reqJamMulai);
+//                        intent.putExtra("tglSelesai", reqTglSelesai);
+//                        intent.putExtra("jamSelesai", reqJamSelesai);
+//                        startActivity(intent);
+//                        finish();
+                        Intent intent = new Intent(tambah_agenda.this, ListJadwal.class);
+                        startActivity(intent);
+                        finish();
                     }
-                }).show();
+                })
+                .show();
     }
 
 }

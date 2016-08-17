@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "649725431482",
+    "firebase_url": "https://sisfogiat.firebaseio.com",
+    "project_id": "sisfogiat",
+    "storage_bucket": "sisfogiat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649725431482:android:150a02381249897a",
+        "android_client_info": {
+          "package_name": "com.mipro.ard.penajdwalan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649725431482-f5sv5imdi4h5vns4km8vur1mhr6a893j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mipro.ard.penajdwalan",
+            "certificate_hash": "DD715F3BADB944C7A07C9C0919FFC089B91F93C5"
+          }
+        },
+        {
+          "client_id": "649725431482-ih8547573mnr7op1sabvmmbg5genh1mv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDILKokSMy3vN9t8rOO36vpW164TBLkH9c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649725431482-ih8547573mnr7op1sabvmmbg5genh1mv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

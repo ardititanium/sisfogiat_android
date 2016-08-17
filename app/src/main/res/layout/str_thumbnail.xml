@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mipro.ard.penajdwalan.RecyclerHandler.l.str.SquareLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:padding="6dp"
+        android:id="@+id/str_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
+
+</com.mipro.ard.penajdwalan.RecyclerHandler.l.str.SquareLayout>

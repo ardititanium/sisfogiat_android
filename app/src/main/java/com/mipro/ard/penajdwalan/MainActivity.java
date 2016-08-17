@@ -29,8 +29,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.clans.fab.FloatingActionMenu;
 import com.mipro.ard.penajdwalan.daftar.daftar_kategori;
 import com.mipro.ard.penajdwalan.daftar.daftar_kegiatan;
+import com.mipro.ard.penajdwalan.daftar.daftar_laporan;
 import com.mipro.ard.penajdwalan.daftar.daftar_personil;
 import com.mipro.ard.penajdwalan.daftar.daftar_satlantas;
+import com.mipro.ard.penajdwalan.jadwal.ListJadwal;
 import com.mipro.ard.penajdwalan.jadwal.daftar_jadwal;
 import com.mipro.ard.penajdwalan.json_handler.MyApplication;
 import com.mipro.ard.penajdwalan.json_handler.parser;
@@ -147,20 +149,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_d_kegiatan) {
             Intent add_kegiatan = new Intent(this.getApplicationContext(), daftar_kegiatan.class);
             startActivity(add_kegiatan);
-
-        } else if (id == R.id.nav_d_agenda) {
-            Intent add_agenda = new Intent(this.getApplicationContext(), tambah_agenda.class);
-            startActivity(add_agenda);
-
-        } else if (id == R.id.nav_d_surat) {
-            Intent add_surat = new Intent(this.getApplicationContext(), tambah_surat_perintah.class);
-            startActivity(add_surat);
-
         } else if (id == R.id.nav_d_laporan) {
-            Intent add_laporan = new Intent(this.getApplicationContext(), tambah_laporan.class);
+            Intent add_laporan = new Intent(this.getApplicationContext(), daftar_laporan.class);
             startActivity(add_laporan);
         }else if(id == R.id.nav_k_jadwal){
-            Intent list_jadwal = new Intent(this.getApplicationContext(), daftar_jadwal.class);
+            Intent list_jadwal = new Intent(this.getApplicationContext(), ListJadwal.class);
             startActivity(list_jadwal);
         }
 
@@ -178,9 +171,7 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab_personil = (FloatingActionButton) findViewById(R.id.fab_a_personil);
         FloatingActionButton fab_kategori = (FloatingActionButton) findViewById(R.id.fab_a_kategori);
         FloatingActionButton fab_kegiatan = (FloatingActionButton) findViewById(R.id.fab_a_kegiatan);
-        FloatingActionButton fab_agenda = (FloatingActionButton) findViewById(R.id.fab_a_agenda);
-        FloatingActionButton fab_surat = (FloatingActionButton) findViewById(R.id.fab_a_surat);
-        FloatingActionButton fab_laporan = (FloatingActionButton) findViewById(R.id.fab_a_laporan);
+
 
         fab_satlantas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,29 +205,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        fab_agenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add_agenda = new Intent(getApplicationContext(), tambah_agenda.class);
-                startActivity(add_agenda);
-            }
-        });
-
-        fab_surat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add_surat = new Intent(getApplicationContext(), tambah_str.class);
-                startActivity(add_surat);
-            }
-        });
-
-        fab_laporan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add_laporan= new Intent(getApplicationContext(), tambah_laporan.class);
-                startActivity(add_laporan);
-            }
-        });
     }
 
 
@@ -256,6 +224,7 @@ public class MainActivity extends AppCompatActivity
 
                         Intent logout = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(logout);
+                        finish();
 
                     }
                 })
@@ -297,6 +266,7 @@ public class MainActivity extends AppCompatActivity
                             }
 
                             parser.AKSES_SHARED_PREF = akses_str;
+                            parser.NRP_ON_GIAT = nrp_str;
 
 
                             jk_temp = dataPers.getString("kelamin");

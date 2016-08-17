@@ -1,1 +1,22 @@
-<resources></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+        <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+                <!-- Customize your theme here. -->
+                <item name="colorPrimary">@color/colorPrimary</item>
+                <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+                <item name="colorAccent">@color/colorAccent</item>
+        </style>
+
+    <style name="App_EditTextCustom" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/edt_bg</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+
+    </style>
+</resources>

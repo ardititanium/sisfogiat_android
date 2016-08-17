@@ -1,0 +1,44 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height = "?android:attr/actionBarSize"
+        android:layout_alignParentBottom = "true"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id = "@+id/kembali_btn"
+            android:layout_width = "?android:attr/actionBarSize"
+            android:layout_height = "?android:attr/actionBarSize"
+            android:src="@drawable/left_arr_ic"
+            android:background="#e74c3c"
+            android:layout_alignParentLeft = "true"/>
+        <TextView
+            android:layout_width = "wrap_content"
+            android:drawablePadding="16dp"
+            android:layout_height = "?android:attr/actionBarSize"
+            android:layout_toRightOf = "@id/kembali_btn"
+            android:id="@+id/pilih_bulan"
+            android:text="TITLE HERE"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="18dp"
+            android:textColor="#fff"
+            android:textAlignment="textStart"
+            android:paddingLeft="16dp"
+            android:drawableRight="@drawable/bottom_arrow_ic"
+            />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/add_btn"
+        android:layout_width="?android:attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
+        android:src="@drawable/fab_add"
+
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

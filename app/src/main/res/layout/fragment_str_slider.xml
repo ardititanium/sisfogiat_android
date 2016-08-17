@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager_str"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <TextView android:layout_width="wrap_content"
+        android:id="@+id/jumlah_page_str"
+        android:layout_height="wrap_content"
+        android:text="80"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
+    <TextView android:layout_width="wrap_content"
+        android:id="@+id/nama_str"
+        android:layout_height="wrap_content"
+        android:text="Surat Perintah"
+        android:layout_marginBottom="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
